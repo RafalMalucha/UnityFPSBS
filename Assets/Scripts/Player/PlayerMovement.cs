@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() 
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         _move = InputSystem.actions.FindAction("Move");
         _look = InputSystem.actions.FindAction("Look");
         _jump = InputSystem.actions.FindAction("Jump");
@@ -67,11 +69,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
-        if (_jump.WasPressedThisFrame()) 
-        {
-            Jump();
-        }
-
         HandleLook();
         HandleMovement();
     }
@@ -80,8 +77,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _lookAmt = _look.ReadValue<Vector2>();
 
-        float horizontalLook = _lookAmt.x * 666.66f * sensitivity * Time.deltaTime * 0.1f;
-        float verticalLook = _lookAmt.y * 666.66f * sensitivity * Time.deltaTime * 0.1f;
+        float horizontalLook = _lookAmt.x * 666.66f * sensitivity * Time.deltaTime * 0.05f;
+        float verticalLook = _lookAmt.y * 666.66f * sensitivity * Time.deltaTime * 0.05f;
 
         camera_xRotation -= verticalLook;
         camera_xRotation = Mathf.Clamp(camera_xRotation, -90f, 90f);
@@ -99,41 +96,60 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = _characterController.isGrounded;
         //Debug.Log(isGrounded);
 
-        if (isGrounded && currentVelocity.y < 0)
+        if (isGrounded)
         {
-            currentVelocity.y = -2f;
+            currentVelocity.y = -1.25f;
+
+            if(_moveAmt[0] != 0)
+            {
+                CalculateMoveSpeedX();
+            }
+
+            if(_moveAmt[0] == 0)
+            {
+                GradualyReduceCalculatedSpeedX();
+            }
+
+            if(_moveAmt[1] != 0)
+            {
+                CalculateMoveSpeedY();
+            }
+
+            if(_moveAmt[1] == 0)
+            {
+                GradualyReduceCalculatedSpeedY();
+            }
         }
 
-        if(_moveAmt[0] != 0)
+        if (_jump.WasPressedThisFrame() && isGrounded) 
         {
-            Debug.Log("move X");
-            CalculateMoveSpeedX();
-            Debug.Log(calculatedMoveSpeedX);
+            isJumping = true;
+            jumpStartTime = Time.time;
+            initialYPosition = transform.position.y;
         }
 
-        if(_moveAmt[0] == 0)
+        if(isJumping)
         {
-            Debug.Log("stop X");
-            GradualyReduceCalculatedSpeedX();
-            Debug.Log(calculatedMoveSpeedX);
-        }
-
-        if(_moveAmt[1] != 0)
-        {
-            Debug.Log("move Y");
-            CalculateMoveSpeedY();
-            Debug.Log(calculatedMoveSpeedY);
-        }
-
-        if(_moveAmt[1] == 0)
-        {
-            Debug.Log("stop Y");
-            GradualyReduceCalculatedSpeedY();
-            Debug.Log(calculatedMoveSpeedY);
+            float elapsedTime = Time.time - jumpStartTime;
+            if (elapsedTime < jumpDuration)
+            {
+                float jumpProgress = elapsedTime / jumpDuration;
+                float yOffset = Mathf.Sin(jumpProgress * Mathf.PI) * jumpHeight;
+                currentVelocity.y = (initialYPosition + yOffset - transform.position.y) / Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
         }
 
         //Vector3 move = transform.right * math.abs(_moveAmt.x) * calculatedMoveSpeedX * 0.001f + transform.forward * math.abs(_moveAmt.y) * calculatedMoveSpeedY * 0.001f;
         Vector3 move = transform.right * calculatedMoveSpeedX * 0.001f + transform.forward * calculatedMoveSpeedY * 0.001f;
+        if (move.magnitude > 1)
+        {
+            move.Normalize();
+        }
+        Debug.Log(move.y);
         _characterController.Move(move * baseSpeed * Time.deltaTime);
 
         currentVelocity.y += gravity * Time.deltaTime;
@@ -143,43 +159,43 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMoveSpeedX()
     {
-        calculatedMoveSpeedX += _moveAmt[0] * 10.0f;
+        calculatedMoveSpeedX += _moveAmt[0] * 25.0f;
 
-        if (calculatedMoveSpeedX > 600.0f)
+        if (calculatedMoveSpeedX > 1000.0f)
         {
-            calculatedMoveSpeedX = 600.0f;
+            calculatedMoveSpeedX = 1000.0f;
         }
-        if (calculatedMoveSpeedX < -600.0f)
+        if (calculatedMoveSpeedX < -1000.0f)
         {
-            calculatedMoveSpeedX = -600.0f;
+            calculatedMoveSpeedX = -1000.0f;
         }
     }
 
     private void CalculateMoveSpeedY()
     {
-        calculatedMoveSpeedY += _moveAmt[1] * 10.0f;
+        calculatedMoveSpeedY += _moveAmt[1] * 25.0f;
 
-        if (calculatedMoveSpeedY > 600.0f)
+        if (calculatedMoveSpeedY > 1000.0f)
         {
-            calculatedMoveSpeedY = 600.0f;
+            calculatedMoveSpeedY = 1000.0f;
         }
-        if (calculatedMoveSpeedY < -600.0f)
+        if (calculatedMoveSpeedY < -1000.0f)
         {
-            calculatedMoveSpeedY = -600.0f;
+            calculatedMoveSpeedY = -1000.0f;
         }
     }
 
     private void GradualyReduceCalculatedSpeedX()
     {
-        if(calculatedMoveSpeedX > 3.0f)
+        if(calculatedMoveSpeedX > 15.0f)
         {
-            calculatedMoveSpeedX -= 3.0f;
+            calculatedMoveSpeedX -= 15.0f;
         }
-        if(calculatedMoveSpeedX < -3.0f)
+        if(calculatedMoveSpeedX < -15.0f)
         {
-            calculatedMoveSpeedX += 3.0f;
+            calculatedMoveSpeedX += 15.0f;
         }
-        if(calculatedMoveSpeedX <= 3.0f && calculatedMoveSpeedX >= -3.0f)
+        if(calculatedMoveSpeedX <= 15.0f && calculatedMoveSpeedX >= -15.0f)
         {
             calculatedMoveSpeedX = 0.0f;
         }
@@ -187,15 +203,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void GradualyReduceCalculatedSpeedY()
     {
-        if(calculatedMoveSpeedY > 3.0f)
+        if(calculatedMoveSpeedY > 15.0f)
         {
-            calculatedMoveSpeedY -= 3.0f;
+            calculatedMoveSpeedY -= 15.0f;
         }
-        if(calculatedMoveSpeedY < -3.0f)
+        if(calculatedMoveSpeedY < -15.0f)
         {
-            calculatedMoveSpeedY += 3.0f;
+            calculatedMoveSpeedY += 15.0f;
         }
-        if(calculatedMoveSpeedY <= 3.0f && calculatedMoveSpeedY >= -3.0f)
+        if(calculatedMoveSpeedY <= 15.0f && calculatedMoveSpeedY >= -15.0f)
         { 
             calculatedMoveSpeedY = 0.0f;
         }
@@ -205,5 +221,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("dupa");
         Debug.Log(_characterController.isGrounded);
+        
     }
 }
