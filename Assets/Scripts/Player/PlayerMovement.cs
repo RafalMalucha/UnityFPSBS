@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -20.0f;
     public float jumpHeight = 1.5f; 
     public float jumpDuration = 0.65f; 
-    public float dashDistance = 20.0f; 
-    public float dashCooldown = 1.0f; 
+    public float dashDistance = 10.0f; 
+    public float dashCooldown = 5.0f; 
     public float sensitivity = 1.0f;
     // ------------------------------------------
     private Vector2 _moveAmt;
@@ -91,7 +91,11 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         _moveAmt = _move.ReadValue<Vector2>();
-        //Debug.Log(_moveAmt);
+        Vector3 direction = new Vector3(_moveAmt.x, 0, _moveAmt.y);
+        if (direction.magnitude > 1)
+        {
+            direction.Normalize();
+        }
 
         isGrounded = _characterController.isGrounded;
         //Debug.Log(isGrounded);
@@ -149,7 +153,23 @@ public class PlayerMovement : MonoBehaviour
         {
             move.Normalize();
         }
-        Debug.Log(move.y);
+
+        if (_dash.WasPressedThisFrame())
+        {
+            Debug.Log("dash");
+            // lastDashTime = Time.time;
+
+            // float dashStartTime = Time.time;
+            // Vector3 dashStartPosition = transform.position;
+            // Vector3 dashEndPosition = dashStartPosition + direction.normalized * dashDistance;
+            // Debug.Log(lastDashTime);
+            // Debug.Log(dashStartTime);
+            // Debug.Log(dashStartPosition);
+            // Debug.Log(dashEndPosition);
+
+            StartCoroutine(Dash(move));
+        }
+
         _characterController.Move(move * baseSpeed * Time.deltaTime);
 
         currentVelocity.y += gravity * Time.deltaTime;
@@ -217,10 +237,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    IEnumerator Dash(Vector3 direction)
     {
-        Debug.Log("dupa");
-        Debug.Log(_characterController.isGrounded);
-        
+        lastDashTime = Time.time;
+
+        float dashStartTime = Time.time;
+        Vector3 dashStartPosition = transform.position;
+        Vector3 dashEndPosition = dashStartPosition + direction.normalized * dashDistance;
+
+        Debug.Log(lastDashTime);
+        Debug.Log(dashStartTime);
+        Debug.Log(dashStartPosition);
+        Debug.Log(dashEndPosition);
+
+
+        while (Time.time < dashStartTime + 0.1f) // Adjusted dash duration to 0.2s
+        {
+            Vector3 dashPosition = Vector3.Lerp(dashStartPosition, dashEndPosition, (Time.time - dashStartTime) / 0.1f);
+            _characterController.Move(dashPosition - transform.position);
+
+            if (_characterController.collisionFlags == CollisionFlags.Sides || _characterController.collisionFlags == CollisionFlags.Above)
+            {
+                break;
+            }
+
+            yield return null;
+        }
     }
 }
