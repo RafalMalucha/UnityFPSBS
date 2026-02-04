@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private float jumpStartTime;
     private float initialYPosition;
-    private Vector3 retainedVelocity;
+    Vector3 move;
     private float lastDashTime;
 
     private float camera_xRotation = 0f;
@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Vector3 move = transform.right * math.abs(_moveAmt.x) * calculatedMoveSpeedX * 0.001f + transform.forward * math.abs(_moveAmt.y) * calculatedMoveSpeedY * 0.001f;
-        Vector3 move = transform.right * calculatedMoveSpeedX * 0.001f + transform.forward * calculatedMoveSpeedY * 0.001f;
+        move = transform.right * calculatedMoveSpeedX * 0.001f + transform.forward * calculatedMoveSpeedY * 0.001f;
         if (move.magnitude > 1)
         {
             move.Normalize();
@@ -156,21 +156,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (_dash.WasPressedThisFrame())
         {
-            Debug.Log("dash");
-            // lastDashTime = Time.time;
-
-            // float dashStartTime = Time.time;
-            // Vector3 dashStartPosition = transform.position;
-            // Vector3 dashEndPosition = dashStartPosition + direction.normalized * dashDistance;
-            // Debug.Log(lastDashTime);
-            // Debug.Log(dashStartTime);
-            // Debug.Log(dashStartPosition);
-            // Debug.Log(dashEndPosition);
-
             StartCoroutine(Dash(move));
         }
 
         _characterController.Move(move * baseSpeed * Time.deltaTime);
+
+        Debug.Log(move * baseSpeed);
 
         currentVelocity.y += gravity * Time.deltaTime;
         _characterController.Move(currentVelocity * Time.deltaTime);
@@ -179,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMoveSpeedX()
     {
-        calculatedMoveSpeedX += _moveAmt[0] * 25.0f;
+        calculatedMoveSpeedX += _moveAmt[0] * 10.0f;
 
         if (calculatedMoveSpeedX > 1000.0f)
         {
@@ -193,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMoveSpeedY()
     {
-        calculatedMoveSpeedY += _moveAmt[1] * 25.0f;
+        calculatedMoveSpeedY += _moveAmt[1] * 10.0f;
 
         if (calculatedMoveSpeedY > 1000.0f)
         {
@@ -263,5 +254,10 @@ public class PlayerMovement : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public float GetCurrentSpeed()
+    {
+        return Mathf.RoundToInt(move.magnitude * 100);
     }
 }
