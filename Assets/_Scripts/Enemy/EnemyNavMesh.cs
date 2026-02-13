@@ -12,7 +12,7 @@ public class EnemyNavMesh : MonoBehaviour
     private void Awake() 
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        StartCoroutine(GetRandomDestination());
+        StartCoroutine(SetRandomDestination());
     }
 
     private void Update()
@@ -20,7 +20,7 @@ public class EnemyNavMesh : MonoBehaviour
         _navMeshAgent.destination = _movePositionTransform.position;
     }
 
-    IEnumerator GetRandomDestination()
+    IEnumerator SetRandomDestination()
     {
         while (true)
         {
@@ -43,5 +43,10 @@ public class EnemyNavMesh : MonoBehaviour
 
             yield return new WaitForSeconds(5f);
         }
+    }
+
+    public Transform GetCurrentDestination()
+    {
+        return _movePositionTransform;
     }
 }
