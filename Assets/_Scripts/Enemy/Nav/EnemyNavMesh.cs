@@ -41,7 +41,7 @@ public class EnemyNavMesh : MonoBehaviour
                 _movePositionTransform = navPoint.transform;
             }
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(20f);
         }
     }
 
