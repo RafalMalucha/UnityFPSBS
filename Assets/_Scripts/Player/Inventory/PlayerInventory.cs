@@ -1,54 +1,84 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public InputActionAsset InputManager;
-    private InputAction _weapon1;
-    private InputAction _weapon2;
-    private InputAction _weapon3;
-    //private List<GameObject> _playerInventory = new List<GameObject>();
-    //private List<String> _playerInventoryTest = new List<String>();
+    public PlayerInventorySO playerInventory;
+    public GameObject weaponHolder;
+    public Transform weaponHolderTransform;
+    private InputAction _weapon1_Input;
+    private InputAction _weapon2_Input;
+    private InputAction _weapon3_Input;
+    private InputAction _weapon4_Input;
+    private Weapon _currentWeapon;
 
-    // private void OnEnable() 
-    // {
-    //     // InputManager.FindActionMap("Weapon1").Enable();
-    //     InputManager.FindActionMap("Weapon2").Enable();
-    //     InputManager.FindActionMap("Weapon3").Enable();
-    // }
+    void Start()
+    {
+        Debug.Log(playerInventory._playerWeapons[0].name);
+        Debug.Log(playerInventory._playerWeapons[1].name);
+        Debug.Log(playerInventory._playerWeapons[2].name);
+        Debug.Log(playerInventory._playerWeapons[3].name);
 
-    // private void OnDisable() 
-    // {
-    //     // InputManager.FindActionMap("Weapon1").Disable();
-    //     InputManager.FindActionMap("Weapon2").Disable();
-    //     InputManager.FindActionMap("Weapon3").Disable();
-    // }
-    private void Awake() {
-        _weapon1 = InputSystem.actions.FindAction("Weapon1");
-        _weapon2 = InputSystem.actions.FindAction("Weapon2");
-        _weapon3 = InputSystem.actions.FindAction("Weapon3");
-
-        // _playerInventoryTest.Add("item1");
-        // _playerInventoryTest.Add("item2");
-        // _playerInventoryTest.Add("item3");
+        _weapon1_Input = InputSystem.actions.FindAction("Weapon1");
+        _weapon2_Input = InputSystem.actions.FindAction("Weapon2");
+        _weapon3_Input = InputSystem.actions.FindAction("Weapon3");
+        _weapon4_Input = InputSystem.actions.FindAction("Weapon4");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_weapon1.WasPressedThisFrame())
+        HandleInventoryInput();
+    }
+
+    private void HandleInventoryInput()
+    {
+        if (_weapon1_Input.WasPressedThisFrame())
         {
-            Debug.Log("weapon1");
+            SetCurrentWeapon(playerInventory._playerWeapons[0]);
+            SpawnCurrentWeapon();
         }
-        if (_weapon2.WasPressedThisFrame())
+        if (_weapon2_Input.WasPressedThisFrame())
         {
-            Debug.Log("weapon2");
+            SetCurrentWeapon(playerInventory._playerWeapons[1]);
+            SpawnCurrentWeapon();
         }
-        if (_weapon3.WasPressedThisFrame())
+        if (_weapon3_Input.WasPressedThisFrame())
         {
-            Debug.Log("weapon3");
+            SetCurrentWeapon(playerInventory._playerWeapons[2]);
+            SpawnCurrentWeapon();
+        }
+        if (_weapon4_Input.WasPressedThisFrame())
+        {
+            SetCurrentWeapon(playerInventory._playerWeapons[3]);
+            SpawnCurrentWeapon();
+        }
+    }
+
+    public Weapon GetCurrentWeapon()
+    {
+        return _currentWeapon;
+    }
+
+    public void SetCurrentWeapon(Weapon NewWeapon)
+    {
+        Debug.Log(NewWeapon.name);
+        _currentWeapon = NewWeapon;
+    }
+
+    private void SpawnCurrentWeapon()
+    {
+        if(weaponHolder.transform.childCount > 0)
+        {
+            foreach(Transform child in weaponHolder.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
+        }
+        else
+        {
+            Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
         }
     }
 }
