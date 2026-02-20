@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public WeaponHolder weaponHolder;
     public PlayerInventorySO playerInventory;
-    public GameObject weaponHolder;
-    public Transform weaponHolderTransform;
     private InputAction _weapon1_Input;
     private InputAction _weapon2_Input;
     private InputAction _weapon3_Input;
@@ -36,22 +35,22 @@ public class PlayerInventory : MonoBehaviour
         if (_weapon1_Input.WasPressedThisFrame())
         {
             SetCurrentWeapon(playerInventory._playerWeapons[0]);
-            SpawnCurrentWeapon();
+            weaponHolder.SpawnCurrentWeapon();
         }
         if (_weapon2_Input.WasPressedThisFrame())
         {
             SetCurrentWeapon(playerInventory._playerWeapons[1]);
-            SpawnCurrentWeapon();
+            weaponHolder.SpawnCurrentWeapon();
         }
         if (_weapon3_Input.WasPressedThisFrame())
         {
             SetCurrentWeapon(playerInventory._playerWeapons[2]);
-            SpawnCurrentWeapon();
+            weaponHolder.SpawnCurrentWeapon();
         }
         if (_weapon4_Input.WasPressedThisFrame())
         {
             SetCurrentWeapon(playerInventory._playerWeapons[3]);
-            SpawnCurrentWeapon();
+            weaponHolder.SpawnCurrentWeapon();
         }
     }
 
@@ -66,19 +65,19 @@ public class PlayerInventory : MonoBehaviour
         _currentWeapon = NewWeapon;
     }
 
-    private void SpawnCurrentWeapon()
-    {
-        if(weaponHolder.transform.childCount > 0)
-        {
-            foreach(Transform child in weaponHolder.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
-        }
-        else
-        {
-            Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
-        }
-    }
+    // private void SpawnCurrentWeapon()
+    // {
+    //     if(weaponHolder.transform.childCount > 0)
+    //     {
+    //         foreach(Transform child in weaponHolder.transform)
+    //         {
+    //             Destroy(child.gameObject);
+    //         }
+    //         Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
+    //     }
+    //     else
+    //     {
+    //         Instantiate(GetCurrentWeapon().model, weaponHolder.transform);
+    //     }
+    // }
 }

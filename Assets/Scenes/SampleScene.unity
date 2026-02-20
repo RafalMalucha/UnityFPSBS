@@ -458,6 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 46717499}
+  - component: {fileID: 46717500}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -473,13 +474,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46717498}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.72537434, z: 0, w: 0.6883546}
-  m_LocalPosition: {x: 0.15, y: 1.15, z: 0.5}
+  m_LocalRotation: {x: -0, y: -0.7253744, z: -0, w: 0.6883547}
+  m_LocalPosition: {x: 0.15000013, y: -0.100000024, z: 0.4999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2141933147}
+  m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 0, y: -93, z: 0}
+--- !u!114 &46717500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46717498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfa5a222c5601848a8f45d071599bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponHolder
+  playerInventory: {fileID: 2141933153}
+  camera: {fileID: 330585545}
 --- !u!1 &55529256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,7 +1418,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 46717499}
   m_Father: {fileID: 2141933147}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
@@ -8675,7 +8691,6 @@ Transform:
   - {fileID: 330585546}
   - {fileID: 1777073995}
   - {fileID: 130321594}
-  - {fileID: 46717499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -28.235, z: 0}
 --- !u!114 &2141933148
@@ -8756,9 +8771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04ed156d0d39864398d79661e0c5d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  weaponHolder: {fileID: 46717500}
   playerInventory: {fileID: 11400000, guid: ce8ef07f583a07248916a79a8357cad2, type: 2}
-  weaponHolder: {fileID: 46717498}
-  weaponHolderTransform: {fileID: 46717499}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
