@@ -8665,6 +8665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2141933147}
   - component: {fileID: 2141933149}
+  - component: {fileID: 2141933154}
   - component: {fileID: 2141933148}
   - component: {fileID: 2141933152}
   - component: {fileID: 2141933153}
@@ -8705,9 +8706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31e9259334f5f84a9b6a2fb6a5223f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  InputManager: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _playerManager: {fileID: 2141933154}
   _characterController: {fileID: 2141933149}
-  cameraHolder: {fileID: 330585546}
   baseSpeed: 10
   maxSpeed: 10
   gravity: -15
@@ -8753,13 +8753,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a8335b91b3de546bc96a1e6fbb265e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRaycast
-  InputManager: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _playerManager: {fileID: 2141933154}
   rayDistance: 100
   interactableLayer:
     serializedVersion: 2
     m_Bits: 0
-  camera: {fileID: 330585545}
-  playerInventory: {fileID: 2141933153}
 --- !u!114 &2141933153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8774,6 +8772,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   weaponHolder: {fileID: 46717500}
   playerInventory: {fileID: 11400000, guid: ce8ef07f583a07248916a79a8357cad2, type: 2}
+--- !u!114 &2141933154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141933146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d162f06a66084d54e870d9f246e776b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateManager
+  _playerInventory: {fileID: 2141933153}
+  _inputManager: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _mainCamera: {fileID: 330585545}
+  _characterController: {fileID: 0}
+  _health: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
