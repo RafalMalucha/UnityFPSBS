@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   name: Pistol
-  model: {fileID: 3562047186257102349, guid: 728e83d464118a64c9c0cc455513e0b3, type: 3}
+  gameObject: {fileID: 3562047186257102349, guid: 728e83d464118a64c9c0cc455513e0b3, type: 3}
   baseDamage: 5

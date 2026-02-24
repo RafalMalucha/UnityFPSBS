@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   name: Rifle
-  model: {fileID: 5523043037547075907, guid: 1ac509427fe6c5c4f91b228a16356afd, type: 3}
+  gameObject: {fileID: 5523043037547075907, guid: 1ac509427fe6c5c4f91b228a16356afd, type: 3}
   baseDamage: 50

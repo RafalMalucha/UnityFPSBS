@@ -8,6 +8,8 @@ public class PlayerRaycast : MonoBehaviour
     public float rayDistance = 100f;
     public LayerMask interactableLayer;
     public Camera camera;
+    public PlayerInventory playerInventory;
+    public PlayerAttackHandler playerAttackHandler;
 
     private void OnEnable() 
     {
@@ -26,6 +28,11 @@ public class PlayerRaycast : MonoBehaviour
 
         if (_attack.WasPressedThisFrame())
         {
+            if (playerInventory.GetCurrentWeapon().gameObject.GetComponent<PistolAttack>())
+            {
+                Debug.Log(playerInventory.GetCurrentWeapon().gameObject.name);
+                playerInventory.GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack();
+            }
             if (Physics.Raycast(ray, out hit, rayDistance, interactableLayer))
             {
                 Debug.Log("Hit: " + hit.collider.name);

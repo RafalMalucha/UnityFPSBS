@@ -24,11 +24,11 @@ public class WeaponHolder : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-            Instantiate(playerInventory.GetCurrentWeapon().model, transform);
+            Instantiate(playerInventory.GetCurrentWeapon().gameObject, transform);
         }
         else
         {
-            Instantiate(playerInventory.GetCurrentWeapon().model, transform);
+            Instantiate(playerInventory.GetCurrentWeapon().gameObject, transform);
         }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class Weapon : ScriptableObject
 {
     public new string name;
-    
-    public GameObject model;
+    public GameObject gameObject;
     public int baseDamage;
 }

@@ -8759,6 +8759,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   camera: {fileID: 330585545}
+  playerInventory: {fileID: 2141933153}
 --- !u!114 &2141933153
 MonoBehaviour:
   m_ObjectHideFlags: 0

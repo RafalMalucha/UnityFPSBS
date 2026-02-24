@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: T00b
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   name: T00b
-  model: {fileID: 1728258969708150520, guid: 29d4f89d4f279624fba296894ef72622, type: 3}
+  gameObject: {fileID: 1728258969708150520, guid: 29d4f89d4f279624fba296894ef72622, type: 3}
   baseDamage: 300

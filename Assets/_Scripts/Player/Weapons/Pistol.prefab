@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994663749543215785}
+  - component: {fileID: 4952833393090292852}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   - {fileID: 2953681384951416234}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4952833393090292852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562047186257102349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b9e88e76ea50e49992c297fef9553b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PistolAttack
+  pistol: {fileID: 11400000, guid: 7d9772714a49dc344b0aea473de2f0cd, type: 2}
 --- !u!1 &4660068767518125420
 GameObject:
   m_ObjectHideFlags: 0

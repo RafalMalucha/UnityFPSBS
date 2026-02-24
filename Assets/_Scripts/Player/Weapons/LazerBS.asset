@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LazerBS
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   name: LazerBS
-  model: {fileID: 7651786016105686294, guid: ce5cbaf5671e1d14a89103c1516c8a21, type: 3}
+  gameObject: {fileID: 7651786016105686294, guid: ce5cbaf5671e1d14a89103c1516c8a21, type: 3}
   baseDamage: 7
