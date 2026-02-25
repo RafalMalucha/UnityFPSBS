@@ -3,35 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerRaycast : MonoBehaviour
 {
-    public InputActionAsset InputManager;
-    private InputAction _attack;
+    [SerializeField] private PlayerManager _playerManager;
+
     public float rayDistance = 100f;
     public LayerMask interactableLayer;
-    public Camera camera;
-    public PlayerInventory playerInventory;
-    public PlayerAttackHandler playerAttackHandler;
-
-    private void OnEnable() 
-    {
-        InputManager.FindActionMap("Player").Enable();
-    }
-
-    private void Awake()
-    {
-        _attack = InputSystem.actions.FindAction("Attack");
-    }
 
     void Update()
     {
-        Ray ray = new Ray(camera.transform.position, camera.transform.forward);
+        Ray ray = new Ray(_playerManager.GetMainCamera().transform.position, _playerManager.GetMainCamera().transform.forward);
         RaycastHit hit;
 
-        if (_attack.WasPressedThisFrame())
+        if (_playerManager.GetAttackInputAction().WasPressedThisFrame())
         {
-            if (playerInventory.GetCurrentWeapon().gameObject.GetComponent<PistolAttack>())
+            if (_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>())
             {
-                Debug.Log(playerInventory.GetCurrentWeapon().gameObject.name);
-                playerInventory.GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack();
+                Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.name);
+                _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack();
             }
             if (Physics.Raycast(ray, out hit, rayDistance, interactableLayer))
             {
