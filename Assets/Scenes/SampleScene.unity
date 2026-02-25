@@ -8707,7 +8707,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   _playerManager: {fileID: 2141933154}
-  _characterController: {fileID: 2141933149}
   baseSpeed: 10
   maxSpeed: 10
   gravity: -15
@@ -8787,7 +8786,7 @@ MonoBehaviour:
   _playerInventory: {fileID: 2141933153}
   _inputManager: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _mainCamera: {fileID: 330585545}
-  _characterController: {fileID: 0}
+  _characterController: {fileID: 2141933149}
   _health: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

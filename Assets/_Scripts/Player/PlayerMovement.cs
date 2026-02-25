@@ -1,16 +1,10 @@
 using System.Collections;
-using NUnit.Framework;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.XR;
+
 public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private PlayerManager _playerManager;
-    [SerializeField] private CharacterController _characterController;
     // ------------------------------------------
     public float baseSpeed = 10.0f; 
     public float maxSpeed = 10.0f; 
@@ -25,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _lookAmount;
     // ------------------------------------------
     private Vector3 currentVelocity = Vector3.zero;
-    // private bool isGrounded;
     private bool isJumping = false;
     private float jumpStartTime;
     private float initialYPosition;
@@ -38,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() 
     {
-        _characterController = GetComponent<CharacterController>();
+        lastDashTime  = Time.time;
     }
 
     private void Update() 
@@ -70,8 +63,6 @@ public class PlayerMovement : MonoBehaviour
         {
             direction.Normalize();
         }
-
-        //isGrounded = _characterController.isGrounded;
 
         if (_playerManager.GetCharacterController().isGrounded)
         {
@@ -129,19 +120,22 @@ public class PlayerMovement : MonoBehaviour
 
         if (_playerManager.GetDashInputAction().WasPressedThisFrame())
         {
-            StartCoroutine(Dash(move));
+            if(Time.time > lastDashTime + dashCooldown)
+            {
+                StartCoroutine(Dash(move));
+            }
         }
 
-        _characterController.Move(move * baseSpeed * Time.deltaTime);
+        _playerManager.GetCharacterController().Move(move * baseSpeed * Time.deltaTime);
 
         currentVelocity.y += gravity * Time.deltaTime;
-        _characterController.Move(currentVelocity * Time.deltaTime);
+        _playerManager.GetCharacterController().Move(currentVelocity * Time.deltaTime);
 
     }
 
     private void CalculateMoveSpeedX()
     {
-        calculatedMoveSpeedX += _moveAmount[0] * 10.0f;
+        calculatedMoveSpeedX += _moveAmount[0] * 50.0f;
 
         if (calculatedMoveSpeedX > 1000.0f)
         {
@@ -155,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMoveSpeedY()
     {
-        calculatedMoveSpeedY += _moveAmount[1] * 10.0f;
+        calculatedMoveSpeedY += _moveAmount[1] * 50.0f;
 
         if (calculatedMoveSpeedY > 1000.0f)
         {
@@ -169,15 +163,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void GradualyReduceCalculatedSpeedX()
     {
-        if(calculatedMoveSpeedX > 15.0f)
+        if(calculatedMoveSpeedX > 50.0f)
         {
-            calculatedMoveSpeedX -= 15.0f;
+            calculatedMoveSpeedX -= 50.0f;
         }
-        if(calculatedMoveSpeedX < -15.0f)
+        if(calculatedMoveSpeedX < -50.0f)
         {
-            calculatedMoveSpeedX += 15.0f;
+            calculatedMoveSpeedX += 50.0f;
         }
-        if(calculatedMoveSpeedX <= 15.0f && calculatedMoveSpeedX >= -15.0f)
+        if(calculatedMoveSpeedX <= 50.0f && calculatedMoveSpeedX >= -50.0f)
         {
             calculatedMoveSpeedX = 0.0f;
         }
@@ -185,15 +179,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void GradualyReduceCalculatedSpeedY()
     {
-        if(calculatedMoveSpeedY > 15.0f)
+        if(calculatedMoveSpeedY > 50.0f)
         {
-            calculatedMoveSpeedY -= 15.0f;
+            calculatedMoveSpeedY -= 50.0f;
         }
-        if(calculatedMoveSpeedY < -15.0f)
+        if(calculatedMoveSpeedY < -50.0f)
         {
-            calculatedMoveSpeedY += 15.0f;
+            calculatedMoveSpeedY += 50.0f;
         }
-        if(calculatedMoveSpeedY <= 15.0f && calculatedMoveSpeedY >= -15.0f)
+        if(calculatedMoveSpeedY <= 50.0f && calculatedMoveSpeedY >= -50.0f)
         { 
             calculatedMoveSpeedY = 0.0f;
         }
@@ -207,18 +201,22 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dashStartPosition = transform.position;
         Vector3 dashEndPosition = dashStartPosition + direction.normalized * dashDistance;
 
-        while (Time.time < dashStartTime + 0.1f) // Adjusted dash duration to 0.2s
+        if(lastDashTime + dashCooldown > dashStartTime)
         {
-            Vector3 dashPosition = Vector3.Lerp(dashStartPosition, dashEndPosition, (Time.time - dashStartTime) / 0.1f);
-            _characterController.Move(dashPosition - transform.position);
-
-            if (_characterController.collisionFlags == CollisionFlags.Sides || _characterController.collisionFlags == CollisionFlags.Above)
+            while (Time.time < dashStartTime + 0.1f)
             {
-                break;
-            }
+                Vector3 dashPosition = Vector3.Lerp(dashStartPosition, dashEndPosition, (Time.time - dashStartTime) / 0.1f);
+                _playerManager.GetCharacterController().Move(dashPosition - transform.position);
 
-            yield return null;
+                if (_playerManager.GetCharacterController().collisionFlags == CollisionFlags.Sides || _playerManager.GetCharacterController().collisionFlags == CollisionFlags.Above)
+                {
+                    break;
+                }
+
+                yield return null;
+            }
         }
+        
     }
 
     public float GetCurrentSpeed()
