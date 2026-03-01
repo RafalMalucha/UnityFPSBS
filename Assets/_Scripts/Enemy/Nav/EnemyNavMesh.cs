@@ -12,6 +12,7 @@ public class EnemyNavMesh : MonoBehaviour
     private void Awake() 
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _movePositionTransform = transform;
         StartCoroutine(SetRandomDestination());
     }
 
@@ -24,24 +25,29 @@ public class EnemyNavMesh : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Selecting new destination");
+            Debug.Log("Selecting new destination " + transform.name);
 
             Vector3 newPosition = new Vector3(this.transform.position.x + Random.Range(-5.0f, 5.0f), 0, this.transform.position.z + Random.Range(-5.0f, 5.0f));
 
-            if (!GameObject.Find("NavMeshDestinationPoint(Clone)"))
+            _currentDestination.transform.position = newPosition;
+            _currentDestination.transform.name = "Target_"+transform.name;
+
+            if (!GameObject.Find("Target_"+transform.name+"(Clone)"))
             {
                 Instantiate(_currentDestination, newPosition, Quaternion.identity);
-                GameObject navPoint = GameObject.Find("NavMeshDestinationPoint(Clone)");
+                GameObject navPoint = GameObject.Find("Target_"+transform.name+"(Clone)");
                 _movePositionTransform = navPoint.transform;
             } 
             else
             {
-                GameObject navPoint = GameObject.Find("NavMeshDestinationPoint(Clone)");
+                GameObject navPoint = GameObject.Find("Target_"+transform.name+"(Clone)");
                 navPoint.transform.position = newPosition;
                 _movePositionTransform = navPoint.transform;
             }
 
-            yield return new WaitForSeconds(20f);
+            float newRandomWaitTime = Random.Range(5.0f, 20.0f);
+
+            yield return new WaitForSeconds(newRandomWaitTime);
         }
     }
 

@@ -14,7 +14,7 @@ public class EnemyInformationManager : MonoBehaviour
 
     void Update()
     {
-        Transform currentDestination = _enemyNavMesh.GetCurrentDestination();
-        enemyCurrentDestinationText.text = $"{currentDestination.position}";
+        //Transform currentDestination = _enemyNavMesh.GetCurrentDestination();
+        //enemyCurrentDestinationText.text = $"{currentDestination.position}";
     }
 }

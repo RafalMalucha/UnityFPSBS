@@ -1,30 +1,44 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerRaycast : MonoBehaviour
 {
     [SerializeField] private PlayerManager _playerManager;
-
-    public float rayDistance = 100f;
+    public float rayDistance = 1f;
     public LayerMask interactableLayer;
+
+    private Ray _ray;
+    //private RaycastHit _raycastHit;
 
     void Update()
     {
-        Ray ray = new Ray(_playerManager.GetMainCamera().transform.position, _playerManager.GetMainCamera().transform.forward);
-        RaycastHit hit;
+        _ray = new Ray(_playerManager.GetMainCamera().transform.position, _playerManager.GetMainCamera().transform.forward);
 
         if (_playerManager.GetAttackInputAction().WasPressedThisFrame())
         {
-            if (_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>())
+            Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().name);
+            
+            switch (_playerManager.GetPlayerInventory().GetCurrentWeapon().name)
             {
-                Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.name);
-                _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack();
-            }
-            if (Physics.Raycast(ray, out hit, rayDistance, interactableLayer))
-            {
-                Debug.Log("Hit: " + hit.collider.name);
+                case "Pistol":
+                    //_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack(_ray, _raycastHit);
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack(_ray, interactableLayer); 
+                    break;
+                case "Rifle":
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<RifleAttack>().Attack();
+                    break;
+                case "T00b":
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<T00bAttack>().Attack();
+                    break;
+                case "LazerBS":
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerAttack>().Attack();
+                    break;
+                default:
+                    Debug.Log("no weapon selected");
+                    break;
             }
         }
-        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red);
+        Debug.DrawRay(_ray.origin, _ray.direction * rayDistance, Color.red);
     }
 }
