@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private PlayerRaycast _playerRaycast;
+    [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerInventory _playerInventory;
     [SerializeField] private InputActionAsset _inputManager;
     [SerializeField] private Camera _mainCamera;
@@ -47,6 +49,11 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public PlayerRaycast GetPlayerRaycast()
+    {
+        return _playerRaycast;
     }
 
     public PlayerInventory GetPlayerInventory()

@@ -13,15 +13,13 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(playerInventory._playerWeapons[0].name);
-        Debug.Log(playerInventory._playerWeapons[1].name);
-        Debug.Log(playerInventory._playerWeapons[2].name);
-        Debug.Log(playerInventory._playerWeapons[3].name);
-
         _weapon1_Input = InputSystem.actions.FindAction("Weapon1");
         _weapon2_Input = InputSystem.actions.FindAction("Weapon2");
         _weapon3_Input = InputSystem.actions.FindAction("Weapon3");
         _weapon4_Input = InputSystem.actions.FindAction("Weapon4");
+
+        SetCurrentWeapon(playerInventory._playerWeapons[0]);
+        weaponHolder.SpawnCurrentWeapon();
     }
 
     // Update is called once per frame

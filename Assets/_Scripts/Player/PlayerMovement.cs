@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [SerializeField] private PlayerManager _playerManager;
     // ------------------------------------------
     public float baseSpeed = 10.0f; 
@@ -12,8 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 1.5f; 
     public float jumpDuration = 0.65f; 
     public float dashDistance = 10.0f; 
-    public float dashCooldown = 5.0f; 
-    public float sensitivity = 1.0f;
+    public float dashCooldown = 0.75f; 
+    public float sensitivity = 0.5f;
     // ------------------------------------------
     private Vector2 _moveAmount;
     private Vector2 _lookAmount;
