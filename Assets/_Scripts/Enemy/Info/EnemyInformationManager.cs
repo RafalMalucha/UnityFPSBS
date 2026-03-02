@@ -9,12 +9,12 @@ public class EnemyInformationManager : MonoBehaviour
     public TextMeshProUGUI enemyCurrentDestinationText;
 
     private void Awake() { 
-        enemyNameText.text = $"{transform.root.gameObject.name}";
+        enemyNameText.text = $"{transform.parent.gameObject.name}";
     }
 
     void Update()
     {
-        //Transform currentDestination = _enemyNavMesh.GetCurrentDestination();
-        //enemyCurrentDestinationText.text = $"{currentDestination.position}";
+        Transform currentDestination = _enemyNavMesh.GetCurrentDestination();
+        enemyCurrentDestinationText.text = $"{currentDestination.position}";
     }
 }
