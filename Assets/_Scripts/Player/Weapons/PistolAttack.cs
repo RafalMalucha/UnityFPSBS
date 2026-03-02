@@ -19,13 +19,16 @@ public class PistolAttack : MonoBehaviour
         //_pistolRay = new Ray(playerManager.GetMainCamera().transform.position, playerManager.GetMainCamera().transform.forward);
         
         //Debug.Log(playerManager.GetPlayerInventory().GetCurrentWeapon().baseDamage);
-        Debug.Log("pistol attack script test");
-
-        Debug.DrawRay(ray.origin, ray.direction * 999, Color.green, 10);
+        Debug.DrawRay(ray.origin, ray.direction * 999, Color.green, 5);
 
         if (Physics.Raycast(ray, out _raycastHit, 999, interactableLayer))
         {
-            Debug.Log("Hit: " + _raycastHit.collider.name);
+            if (_raycastHit.collider.transform.GetComponent<SingleEnemyManager>())
+            {
+                _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(pistol.baseDamage);
+            }
+            // Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
+            // Debug.Log("Hit: " + _raycastHit.collider.transform);
         }
     }
 }

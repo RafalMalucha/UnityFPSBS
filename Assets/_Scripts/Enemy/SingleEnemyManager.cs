@@ -1,0 +1,53 @@
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class SingleEnemyManager : MonoBehaviour
+{
+    [SerializeField] private float _enemyHealth;
+    //[SerializeField] private NavMeshAgent _navMeshAgent;
+    [SerializeField] private EnemyNavMesh _enemyNavMesh;
+
+    private void Awake()
+    {
+        _enemyNavMesh = GetComponent<EnemyNavMesh>();
+    }
+
+    void Start()
+    {
+        
+    }
+    
+    void Update()
+    {
+        
+    }
+
+    public void OnHit(int baseDamage)
+    {
+        float damageModifier = Random.Range(0.5f, 1.5f);
+        float calculatedDamage = baseDamage * damageModifier;
+        Debug.Log(transform.name+" got hit for: "+calculatedDamage);
+        ModifyEnemyHealth(calculatedDamage);
+    }
+
+    public float GetEnemyHealth()
+    {
+        return _enemyHealth;
+    }
+
+    public void ModifyEnemyHealth(float calculatedDamage)
+    {
+        _enemyHealth -= calculatedDamage;
+        if(_enemyHealth <= 0)
+        {
+            EnemyDie();
+        }
+    }
+
+    private void EnemyDie()
+    {
+        Debug.Log("die");
+        Destroy(gameObject);
+    }
+}
