@@ -4,12 +4,14 @@ using UnityEngine.AI;
 
 public class SingleEnemyManager : MonoBehaviour
 {
+    [SerializeField] private EnemyType _enemyType;
     [SerializeField] private float _enemyHealth;
     //[SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] private EnemyNavMesh _enemyNavMesh;
 
     private void Awake()
     {
+        _enemyHealth = _enemyType.health;
         _enemyNavMesh = GetComponent<EnemyNavMesh>();
     }
 

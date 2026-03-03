@@ -27,8 +27,8 @@ public class PistolAttack : MonoBehaviour
             {
                 _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(pistol.baseDamage);
             }
-            // Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
-            // Debug.Log("Hit: " + _raycastHit.collider.transform);
+            Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
+            Debug.Log("Hit: " + _raycastHit.collider.transform);
         }
     }
 }

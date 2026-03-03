@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 6383959778094860604}
   - component: {fileID: -8684232586330952956}
   m_Layer: 6
-  m_Name: SampleEnemy
+  m_Name: BigGuyEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d9abccb0b3c7e4686d2c7b0cd9ab72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleEnemyManager
+  _enemyType: {fileID: 11400000, guid: 0d1e23e9edfc4c84d86ecc5d39b83b5a, type: 2}
   _enemyHealth: 100
   _enemyNavMesh: {fileID: 0}
 --- !u!114 &2295234870983924684
