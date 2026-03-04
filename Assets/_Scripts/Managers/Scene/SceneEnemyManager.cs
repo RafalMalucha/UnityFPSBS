@@ -1,16 +1,37 @@
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SceneEnemyManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    private SingleEnemyManager[] _listOfAliveEnemies;
+
     void Start()
     {
-        
+        Debug.Log(GetComponentsInChildren<SingleEnemyManager>());
+        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
-        
+        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+        string list = "";
+        foreach(SingleEnemyManager sem in _listOfAliveEnemies)
+        {
+            list += sem.name + ", ";
+        }
+        //Debug.Log(list);
+    }
+
+    public void UpdateListOfAliveEnemies()
+    {
+        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+    }
+
+    public int GetAmountOfEnemiesAlive()
+    {
+        return _listOfAliveEnemies.Length;
     }
 }

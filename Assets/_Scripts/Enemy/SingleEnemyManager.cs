@@ -49,7 +49,8 @@ public class SingleEnemyManager : MonoBehaviour
 
     private void EnemyDie()
     {
-        Debug.Log("die");
         Destroy(gameObject);
+        Debug.Log("die");
+        //GetComponentInParent<SceneEnemyManager>().UpdateListOfAliveEnemies();
     }
 }

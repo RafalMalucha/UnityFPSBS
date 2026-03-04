@@ -61,6 +61,11 @@ public class PlayerManager : MonoBehaviour
         return _playerInventory;
     }
 
+    public PlayerMovement GetPlayerMovement()
+    {
+        return _playerMovement;
+    }
+
     public Camera GetMainCamera()
     {
         return _mainCamera;

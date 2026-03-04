@@ -1,19 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class SpeedDisplay : MonoBehaviour
 {
     public TextMeshProUGUI SpeedText;
-    public PlayerMovement PlayerMovement; 
+    private float _currentSpeed;
+    //public PlayerMovement PlayerMovement; 
 
     void Update()
     {
-        if (PlayerMovement != null && SpeedText != null)
-        {
-            float currentSpeed = PlayerMovement.GetCurrentSpeed();
-            SpeedText.text = $"Speed: {currentSpeed}";
-        }
+        //float currentSpeed = PlayerMovement.GetCurrentSpeed();
+        SpeedText.text = $"Speed: {_currentSpeed}";
     }
+
+    public void SetNewCurrentSpeed(float newCurrentSpeed)
+    {
+        _currentSpeed = newCurrentSpeed;
+    }
+
+
 }

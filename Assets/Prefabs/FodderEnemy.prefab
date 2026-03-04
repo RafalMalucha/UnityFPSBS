@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745a041678606f644a7c8087ce0ea3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyInformationManager
-  _singleEnemyManager: {fileID: 0}
+  _singleEnemyManager: {fileID: 858759173364034017}
   _enemyNavMesh: {fileID: 2280632959025773091}
-  enemyNameText: {fileID: 0}
-  enemyCurrentDestinationText: {fileID: 0}
-  enemyCurrentHealthText: {fileID: 0}
+  enemyNameText: {fileID: 4276755145953853967}
+  enemyCurrentDestinationText: {fileID: 2428297339921454006}
+  enemyCurrentHealthText: {fileID: 215080258595515882}
 --- !u!1 &3236309815665690466
 GameObject:
   m_ObjectHideFlags: 0

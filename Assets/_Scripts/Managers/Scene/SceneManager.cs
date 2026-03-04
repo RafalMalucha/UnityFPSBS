@@ -5,7 +5,7 @@ public class SceneManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private Transform _playerSpawnPoint;
-    
+    [SerializeField] private SceneEnemyManager _sceneEnemyManager;
     
     private void Awake()
     {

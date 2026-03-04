@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_CRT
+  m_Name: Shader Graphs_CRT 1
   m_Shader: {fileID: -6465566751694194690, guid: 58f345f78c581d1458f512ddac31f99a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -23,10 +23,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _UVDistortion_a7939f4760ed4f529810c84139c1b873_NoiseMap_647888222_Texture2D:
-        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,9 +37,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blur_Offset: 0
-    - _Scan_Lines_Speed: 0.15
+    - _Blur_Offset: 0.001
+    - _Scan_Lines_Speed: 0.05
     m_Colors:
-    - _Color: {r: 1.4142135, g: 1.4142135, b: 1.4142135, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
