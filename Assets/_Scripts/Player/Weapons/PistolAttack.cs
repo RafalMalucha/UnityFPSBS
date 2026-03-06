@@ -21,6 +21,8 @@ public class PistolAttack : MonoBehaviour
         //Debug.Log(playerManager.GetPlayerInventory().GetCurrentWeapon().baseDamage);
         Debug.DrawRay(ray.origin, ray.direction * 999, Color.green, 5);
 
+        AudioManager.Instance.PlaySound(AudioManager.SoundType.Pistol);
+
         if (Physics.Raycast(ray, out _raycastHit, 999, interactableLayer))
         {
             if (_raycastHit.collider.transform.GetComponent<SingleEnemyManager>())
