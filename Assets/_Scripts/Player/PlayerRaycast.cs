@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerRaycast : MonoBehaviour
 {
@@ -17,22 +15,23 @@ public class PlayerRaycast : MonoBehaviour
 
         if (_playerManager.GetAttackInputAction().WasPressedThisFrame())
         {
-            Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().name);
+            //Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().name);
+            float timeOfAttack = Time.time;
+            Debug.Log(timeOfAttack);
             
             switch (_playerManager.GetPlayerInventory().GetCurrentWeapon().name)
             {
                 case "Pistol":
-                    //_playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack(_ray, _raycastHit);
-                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolAttack>().Attack(_ray, interactableLayer); 
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<PistolBehavior>().Attack(_ray, interactableLayer, timeOfAttack); 
                     break;
                 case "Rifle":
-                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<RifleAttack>().Attack();
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<RifleBehavior>().Attack(_ray, interactableLayer, timeOfAttack);
                     break;
                 case "T00b":
-                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<T00bAttack>().Attack();
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<T00bBehavior>().Attack(_ray, interactableLayer, timeOfAttack);
                     break;
                 case "LazerBS":
-                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerAttack>().Attack();
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerBehavior>().Attack(_ray, interactableLayer, timeOfAttack);
                     break;
                 default:
                     Debug.Log("no weapon selected");

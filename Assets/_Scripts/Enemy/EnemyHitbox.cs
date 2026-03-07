@@ -11,7 +11,7 @@ public class EnemyHitbox : MonoBehaviour
     }
     public void OnHit(int baseDamage)
     {
-        Debug.Log(transform.name+" got hit");
+        //Debug.Log(transform.name+" got hit");
         _singleEnemyManager.OnHit(baseDamage);
     }
 }

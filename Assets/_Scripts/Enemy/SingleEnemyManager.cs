@@ -29,7 +29,7 @@ public class SingleEnemyManager : MonoBehaviour
     {
         float damageModifier = Random.Range(0.5f, 1.5f);
         float calculatedDamage = baseDamage * damageModifier;
-        Debug.Log(transform.name+" got hit for: "+calculatedDamage);
+        //Debug.Log(transform.name+" got hit for: "+calculatedDamage);
         ModifyEnemyHealth(calculatedDamage);
     }
 

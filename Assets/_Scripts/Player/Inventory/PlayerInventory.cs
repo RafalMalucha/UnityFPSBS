@@ -59,7 +59,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetCurrentWeapon(Weapon NewWeapon)
     {
-        Debug.Log(NewWeapon.name);
+        //Debug.Log(NewWeapon.name);
         _currentWeapon = NewWeapon;
     }
 

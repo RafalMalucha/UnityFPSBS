@@ -25,7 +25,7 @@ public class EnemyNavMesh : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Selecting new destination " + transform.name);
+            //Debug.Log("Selecting new destination " + transform.name);
 
             Vector3 newPosition = new Vector3(this.transform.position.x + Random.Range(-5.0f, 5.0f), 0, this.transform.position.z + Random.Range(-5.0f, 5.0f));
 

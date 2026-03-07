@@ -569,7 +569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3944438121812444224}
-  - component: {fileID: 8663486482915535140}
+  - component: {fileID: -3030756826038025383}
   m_Layer: 0
   m_Name: LazerBS
   m_TagString: Untagged
@@ -597,7 +597,7 @@ Transform:
   - {fileID: 7468455480359926880}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &8663486482915535140
+--- !u!114 &-3030756826038025383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -609,4 +609,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f9c6f317be22244bbcc3f9a7b2e768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LazerAttack
-  lazer: {fileID: 0}
+  lazer: {fileID: 11400000, guid: d4cbe0732af2c7c42895c43268385776, type: 2}

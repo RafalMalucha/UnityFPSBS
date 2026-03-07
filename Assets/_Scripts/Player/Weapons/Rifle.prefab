@@ -384,7 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25059feac3eb9549978842a0e390a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RifleAttack
-  rifle: {fileID: 0}
+  rifle: {fileID: 11400000, guid: 530366dc487eeed46800a46c10b49aee, type: 2}
+  _attackCooldown: 1
+  _lastAttackTime: 0
+  _lastAttackTimeCheckFlag: 0
 --- !u!1 &6153669297244601417
 GameObject:
   m_ObjectHideFlags: 0
