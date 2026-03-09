@@ -4,7 +4,7 @@ public class PlayerRaycast : MonoBehaviour
 {
     [SerializeField] private PlayerManager _playerManager;
     public float rayDistance = 1f;
-    public LayerMask interactableLayer;
+    public LayerMask interactableLayer; 
 
     private Ray _ray;
     //private RaycastHit _raycastHit;
@@ -28,7 +28,7 @@ public class PlayerRaycast : MonoBehaviour
                     _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<RifleBehavior>().Attack(_ray, interactableLayer, timeOfAttack);
                     break;
                 case "T00b":
-                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<T00bBehavior>().Attack(_ray, interactableLayer, timeOfAttack);
+                    _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<T00bBehavior>().Attack(_ray, timeOfAttack);
                     break;
                 case "LazerBS":
                     _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerBehavior>().Attack(_ray, interactableLayer, timeOfAttack);

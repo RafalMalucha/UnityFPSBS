@@ -33,6 +33,7 @@ Transform:
   - {fileID: 643993152605338255}
   - {fileID: 3548906926478591194}
   - {fileID: 112725504198819528}
+  - {fileID: 371890904501138382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4333155539439852624
@@ -48,6 +49,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::T00bAttack
   T00b: {fileID: 11400000, guid: d35851a0ecf1c344d8262bb458fc7f15, type: 2}
+  _attackCooldown: 3
+  _rocketPrefab: {fileID: 621466142667158362, guid: f556d24ee6ab9fe47a6c7807d2b817b2, type: 3}
+  _rocketSpawnPoint: {fileID: 371890904501138382}
+--- !u!1 &5330255466534349384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371890904501138382}
+  m_Layer: 0
+  m_Name: RocketSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &371890904501138382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5330255466534349384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2694134692860555655}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5692424956680548176
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +96,7 @@ GameObject:
   - component: {fileID: 462911096708168395}
   - component: {fileID: 5275289599730834499}
   m_Layer: 0
-  m_Name: Cube (4)
+  m_Name: HandleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +208,7 @@ GameObject:
   - component: {fileID: 2822670333269009054}
   - component: {fileID: 6258511988938170513}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +322,7 @@ GameObject:
   - component: {fileID: 6421201727991707614}
   - component: {fileID: 7426277556562179014}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

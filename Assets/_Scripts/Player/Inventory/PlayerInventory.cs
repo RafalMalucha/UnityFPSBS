@@ -63,6 +63,11 @@ public class PlayerInventory : MonoBehaviour
         _currentWeapon = NewWeapon;
     }
 
+    public WeaponHolder GetWeaponHolder()
+    {
+        return weaponHolder;
+    }
+
     // private void SpawnCurrentWeapon()
     // {
     //     if(weaponHolder.transform.childCount > 0)
