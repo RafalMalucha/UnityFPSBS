@@ -9,19 +9,28 @@ public class RocketBehavior : MonoBehaviour
     [SerializeField]    private GameObject _rocketExplosion;
 
     private RaycastHit _raycastHit;
-    private bool _hasRocketHit = false;
+    private bool _hasRocketExploded = false;
     private float _sphereCastRadius = 0.1f;
+    private float _lifeTime = 5f;
+    private float _rocketStartTime;
 
     private void Awake()
     {
+        _rocketStartTime = Time.time;
         Debug.Log("rocket spawned");
         Debug.Log(transform.position);
     }
 
     void Update()
     {
-        if (!_hasRocketHit)
+        if (!_hasRocketExploded)
         {
+            if (Time.time > _rocketStartTime + _lifeTime)
+            {
+                _hasRocketExploded = true;
+                RocketExplode();
+            }
+
             transform.position += transform.forward * speed * Time.deltaTime;
 
             if(Physics.SphereCast(transform.position, _sphereCastRadius, transform.forward, out _raycastHit, 1))
@@ -36,7 +45,7 @@ public class RocketBehavior : MonoBehaviour
 
                 if(_raycastHit.distance < 0.25f)
                 {
-                    _hasRocketHit = true;
+                    _hasRocketExploded = true;
                     RocketExplode();
                 }
             }
@@ -53,6 +62,8 @@ public class RocketBehavior : MonoBehaviour
             transform.position,
             Quaternion.identity
         );
+
+        AudioManager.Instance.PlaySound(AudioManager.SoundType.Pistol);
 
         foreach(RaycastHit objectHit in objectsHit)
         {
