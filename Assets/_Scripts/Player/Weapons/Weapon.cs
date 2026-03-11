@@ -6,4 +6,9 @@ public class Weapon : ScriptableObject
     public new string name;
     public GameObject gameObject;
     public int baseDamage;
+
+    public GameObject GetWeaponGameObject()
+    {
+        return gameObject;
+    }
 }

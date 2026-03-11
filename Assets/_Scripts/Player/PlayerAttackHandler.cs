@@ -12,22 +12,13 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         Instance = this; 
     }
-
-    public void SpawnRocket(Transform _rocketSpawnPoint, Vector3 _rocketTarget)
+    
+    public void SpawnRocket()
     {
         var rocket = Instantiate(
             _rocketPrefab, 
-            PlayerManager.Instance.GetPlayerInventory().GetWeaponHolder().transform.position, 
+            PlayerManager.Instance.GetPlayerInventory().GetWeaponHolder().GetComponentInChildren<T00bBehavior>().GetRocketSpawnPoint().position, 
             PlayerManager.Instance.GetPlayerInventory().GetWeaponHolder().transform.rotation * Quaternion.Euler(0, 90 ,0)
         );
-
-        Instantiate(
-            _hitMarker,
-            _rocketTarget,
-            Quaternion.identity
-        ); 
-
-        rocket.GetComponent<RocketBehavior>().SetTarget(_rocketTarget);       
-        //rocket.SetTarget(_rocketTargetr);
     }
 }

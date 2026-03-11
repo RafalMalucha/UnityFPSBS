@@ -35,24 +35,31 @@ public class T00bBehavior : MonoBehaviour
             // TODO change sounds
             AudioManager.Instance.PlaySound(AudioManager.SoundType.Pistol);
 
+            PlayerAttackHandler.Instance.SpawnRocket();
+
             //if (Physics.Raycast(ray, out _raycastHit, 999, interactableLayer))
-            if (Physics.Raycast(ray, out _raycastHit, 999))
-            {
-                Vector3 raycastHitPoint = _raycastHit.point;
-                Debug.Log("hit position" + _raycastHit.point);
-                Debug.Log("rocket origin" + _rocketSpawnPoint.position);
+            // if (Physics.Raycast(ray, out _raycastHit, 999))
+            // {
+            //     Vector3 raycastHitPoint = _raycastHit.point;
+            //     Debug.Log("hit position" + _raycastHit.point);
+            //     Debug.Log("rocket origin" + _rocketSpawnPoint.position);
 
-                PlayerAttackHandler.Instance.SpawnRocket(_rocketSpawnPoint, raycastHitPoint);
+            //     //PlayerAttackHandler.Instance.SpawnRocket(_rocketSpawnPoint, raycastHitPoint);
 
-                if (_raycastHit.collider.transform.GetComponent<SingleEnemyManager>())
-                {
-                    _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(T00b.baseDamage);
-                }
+            //     if (_raycastHit.collider.transform.GetComponent<SingleEnemyManager>())
+            //     {
+            //         _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(T00b.baseDamage);
+            //     }
 
-                Debug.Log("hit position" + _raycastHit.point);
-            }
+            //     Debug.Log("hit position" + _raycastHit.point);
+            // }
 
             _lastAttackTime = timeOfAttack;
         }
+    }
+
+    public Transform GetRocketSpawnPoint()
+    {
+        return _rocketSpawnPoint;
     }
 }
