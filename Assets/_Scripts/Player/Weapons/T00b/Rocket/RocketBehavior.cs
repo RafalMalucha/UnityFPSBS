@@ -4,9 +4,8 @@ using UnityEngine;
 public class RocketBehavior : MonoBehaviour
 {
     [SerializeField]    private float speed = 50.0f;
+    [SerializeField]    private GameObject _rocketExplosion;
 
-    private BoxCollider _rocketHitBox;
-    private Ray _ray;
     private RaycastHit _raycastHit;
     private float _sphereCastRadius = 0.1f;
 
