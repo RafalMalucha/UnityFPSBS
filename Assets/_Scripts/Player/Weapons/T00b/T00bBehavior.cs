@@ -37,23 +37,6 @@ public class T00bBehavior : MonoBehaviour
 
             PlayerAttackHandler.Instance.SpawnRocket();
 
-            //if (Physics.Raycast(ray, out _raycastHit, 999, interactableLayer))
-            // if (Physics.Raycast(ray, out _raycastHit, 999))
-            // {
-            //     Vector3 raycastHitPoint = _raycastHit.point;
-            //     Debug.Log("hit position" + _raycastHit.point);
-            //     Debug.Log("rocket origin" + _rocketSpawnPoint.position);
-
-            //     //PlayerAttackHandler.Instance.SpawnRocket(_rocketSpawnPoint, raycastHitPoint);
-
-            //     if (_raycastHit.collider.transform.GetComponent<SingleEnemyManager>())
-            //     {
-            //         _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(T00b.baseDamage);
-            //     }
-
-            //     Debug.Log("hit position" + _raycastHit.point);
-            // }
-
             _lastAttackTime = timeOfAttack;
         }
     }

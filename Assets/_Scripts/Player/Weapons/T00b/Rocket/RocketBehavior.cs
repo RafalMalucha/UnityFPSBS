@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class RocketBehavior : MonoBehaviour
     [SerializeField]    private GameObject _rocketExplosion;
 
     private RaycastHit _raycastHit;
+    private bool _hasRocketHit = false;
     private float _sphereCastRadius = 0.1f;
 
     private void Awake()
@@ -15,44 +18,58 @@ public class RocketBehavior : MonoBehaviour
         Debug.Log(transform.position);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float step = speed * Time.deltaTime;
-
-        transform.position += transform.forward * speed * Time.deltaTime;
-
-        if(Physics.SphereCast(transform.position, _sphereCastRadius, transform.forward, out _raycastHit, 10))
+        if (!_hasRocketHit)
         {
-            Debug.Log(_raycastHit.transform.name);
-            Debug.Log(_raycastHit.distance);
+            transform.position += transform.forward * speed * Time.deltaTime;
 
-            if(_raycastHit.distance < 0.1f)
+            if(Physics.SphereCast(transform.position, _sphereCastRadius, transform.forward, out _raycastHit, 1))
             {
-                RocketExplode();
+                // Debug.LogWarning("-----------------");
+                // Debug.Log("hit object name" + _raycastHit.transform.name);
+                // Debug.Log("hit object position" + _raycastHit.transform.position);
+                // Debug.Log("distance to hit object" + _raycastHit.distance);
+                // Debug.Log("----");
+                // Debug.Log("current rocket position" + transform.position);
+                // Debug.LogWarning("-----------------");
+
+                if(_raycastHit.distance < 0.25f)
+                {
+                    _hasRocketHit = true;
+                    RocketExplode();
+                }
             }
         }
-        
 
-        //if (Vector3.Distance(transform.position, _target) < 0.001f)
-        // {
-        //     RocketExplode();
-        // }
-    }
-
-    public void SetTarget(Vector3 newTarget)
-    {
-        //_target = newTarget;    
-        Debug.Log("target set");
     }
 
     private void RocketExplode()
     {
-        GameObject testSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        testSphere.transform.position = transform.position;
-        testSphere.transform.localScale = new Vector3(5,5,5);
+        RaycastHit[] objectsHit = Physics.SphereCastAll(transform.position, 2.5f, transform.forward, 1);
+        
+        GameObject explosion = Instantiate(
+            _rocketExplosion,
+            transform.position,
+            Quaternion.identity
+        );
 
+        foreach(RaycastHit objectHit in objectsHit)
+        {
+            try
+            {
+                var singleEnemyManager = objectHit.transform.GetComponent<SingleEnemyManager>();
+                objectHit.transform.GetComponent<SingleEnemyManager>().OnHit(30);
+            }catch(Exception){}
+        }
+
+        StartCoroutine(WaitForExplosionDestroy(explosion));
+    }
+
+    IEnumerator WaitForExplosionDestroy(GameObject explosion)
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(explosion);
         Destroy(gameObject);
-        Debug.Log("rocket explode");
     }
 }
