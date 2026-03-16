@@ -13,6 +13,11 @@ public class PlayerRaycast : MonoBehaviour
     {
         _ray = new Ray(_playerManager.GetMainCamera().transform.position, _playerManager.GetMainCamera().transform.forward);
 
+        if (_playerManager.GetAttackInputAction().IsPressed() && _playerManager.GetPlayerInventory().GetCurrentWeapon().name == "LazerBS")
+        {
+            _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerBehavior>().HandleSingleTickDamage();
+        }
+
         if (_playerManager.GetAttackInputAction().WasPressedThisFrame())
         {
             //Debug.Log(_playerManager.GetPlayerInventory().GetCurrentWeapon().name);
@@ -38,12 +43,6 @@ public class PlayerRaycast : MonoBehaviour
                     break;
             }
         }
-
-        if (_playerManager.GetAttackInputAction().IsPressed() && _playerManager.GetPlayerInventory().GetCurrentWeapon().name == "LazerBS")
-        {
-            _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerBehavior>().HandleSingleTickDamage();
-        }
-
 
         Debug.DrawRay(_ray.origin, _ray.direction * rayDistance, Color.red);
     }
