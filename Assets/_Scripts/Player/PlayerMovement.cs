@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() 
     {
-        lastDashTime  = Time.time;
+        lastDashTime = Time.time;
     }
 
     private void Update() 

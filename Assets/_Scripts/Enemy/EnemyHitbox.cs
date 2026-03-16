@@ -9,9 +9,9 @@ public class EnemyHitbox : MonoBehaviour
     {
         _singleEnemyManager = transform.GetComponent<SingleEnemyManager>();
     }
-    public void OnHit(int baseDamage)
+    public void OnHit(float baseDamage)
     {
-        Debug.Log(transform.name+" got hit");
+        //Debug.Log(transform.name+" got hit");
         _singleEnemyManager.OnHit(baseDamage);
     }
 }

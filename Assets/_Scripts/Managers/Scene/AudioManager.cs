@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class AudioManager : MonoBehaviour
 {
@@ -46,8 +45,8 @@ public class AudioManager : MonoBehaviour
             _soundListsDictionary[soundsOfTypeList.listSoundType] = soundsOfTypeList;
         }
 
-        Debug.LogWarning(_soundListsDictionary);
-        Debug.LogWarning(allSounds);    
+        //Debug.LogWarning(_soundListsDictionary);
+        //Debug.LogWarning(allSounds);    
     }
 
     public void PlaySound(SoundType soundType)
@@ -58,7 +57,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(soundsOfTypeList);
+        //Debug.Log(soundsOfTypeList);
         int randomSoundIndex = Random.Range(0, soundsOfTypeList.allSoundsOfType.Length);
 
         GameObject soundObject = new GameObject($"Sound_{soundType}");

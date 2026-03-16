@@ -17,19 +17,19 @@ public class SingleEnemyManager : MonoBehaviour
 
     void Start()
     {
-        
-    }
-    
-    void Update()
-    {
-        
+
     }
 
-    public void OnHit(int baseDamage)
+    void Update()
+    {
+
+    }
+
+    public void OnHit(float baseDamage)
     {
         float damageModifier = Random.Range(0.5f, 1.5f);
         float calculatedDamage = baseDamage * damageModifier;
-        Debug.Log(transform.name+" got hit for: "+calculatedDamage);
+        //Debug.Log(transform.name+" got hit for: "+calculatedDamage);
         ModifyEnemyHealth(calculatedDamage);
     }
 
@@ -41,7 +41,7 @@ public class SingleEnemyManager : MonoBehaviour
     public void ModifyEnemyHealth(float calculatedDamage)
     {
         _enemyHealth -= calculatedDamage;
-        if(_enemyHealth <= 0)
+        if (_enemyHealth <= 0)
         {
             EnemyDie();
         }
@@ -50,7 +50,7 @@ public class SingleEnemyManager : MonoBehaviour
     private void EnemyDie()
     {
         Destroy(gameObject);
-        Debug.Log("die");
+        //Debug.Log("die");
         //GetComponentInParent<SceneEnemyManager>().UpdateListOfAliveEnemies();
     }
 }

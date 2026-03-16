@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+
+    //Singleton
+    public static PlayerManager Instance;
+
     [SerializeField] private PlayerRaycast _playerRaycast;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerInventory _playerInventory;
@@ -32,6 +36,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         Cursor.lockState = CursorLockMode.Locked;
 
         _characterController = GetComponent<CharacterController>();
