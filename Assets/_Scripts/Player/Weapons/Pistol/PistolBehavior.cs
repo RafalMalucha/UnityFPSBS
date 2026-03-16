@@ -17,10 +17,10 @@ public class PistolBehavior : MonoBehaviour
     {
         float thisAttackTime = timeOfAttack;
 
-        Debug.Log("last attack time: " + _lastAttackTime);
-        Debug.Log("this attack time: " + thisAttackTime);
+        //Debug.Log("last attack time: " + _lastAttackTime);
+        //Debug.Log("this attack time: " + thisAttackTime);
 
-        Debug.Log(_lastAttackTime + _attackCooldown);
+        //Debug.Log(_lastAttackTime + _attackCooldown);
 
         if(thisAttackTime >= _lastAttackTime + _attackCooldown)
         {
@@ -34,8 +34,8 @@ public class PistolBehavior : MonoBehaviour
                 {
                     _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(pistol.baseDamage);
                 }
-                Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
-                Debug.Log("Hit: " + _raycastHit.collider.transform);
+                //Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
+                //Debug.Log("Hit: " + _raycastHit.collider.transform);
             }
 
             _lastAttackTime = timeOfAttack;

@@ -5,7 +5,7 @@ public class RifleBehavior : MonoBehaviour
     public Weapon rifle;
     private RaycastHit _raycastHit;
 
-    [SerializeField] private float _attackCooldown = 1f;
+    private float _attackCooldown = 0.5f;
     private static float _lastAttackTime = 0f;
 
     private void Awake()
@@ -17,14 +17,14 @@ public class RifleBehavior : MonoBehaviour
     {
         float thisAttackTime = timeOfAttack;
 
-        Debug.Log("last attack time: " + _lastAttackTime);
-        Debug.Log("this attack time: " + thisAttackTime);
+        //Debug.Log("last attack time: " + _lastAttackTime);
+        //Debug.Log("this attack time: " + thisAttackTime);
 
-        Debug.Log(_lastAttackTime + _attackCooldown);
+        //Debug.Log(_lastAttackTime + _attackCooldown);
 
         if(thisAttackTime >= _lastAttackTime + _attackCooldown)
         {
-            Debug.DrawRay(ray.origin, ray.direction * 999, Color.purple, 7);
+            //Debug.DrawRay(ray.origin, ray.direction * 999, Color.purple, 7);
 
             //TODO change sounds for rifle
             AudioManager.Instance.PlaySound(AudioManager.SoundType.Pistol);
@@ -35,8 +35,8 @@ public class RifleBehavior : MonoBehaviour
                 {
                     _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(rifle.baseDamage);
                 }
-                Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
-                Debug.Log("Hit: " + _raycastHit.collider.transform);
+                //Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
+                //Debug.Log("Hit: " + _raycastHit.collider.transform);
             }
 
             _lastAttackTime = timeOfAttack;

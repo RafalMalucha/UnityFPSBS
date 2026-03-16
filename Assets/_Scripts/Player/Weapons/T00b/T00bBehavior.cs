@@ -19,14 +19,14 @@ public class T00bBehavior : MonoBehaviour
     //public void Attack(Ray ray, LayerMask interactableLayer, float timeOfAttack)
     public void Attack(Ray ray, float timeOfAttack)
     {
-        Debug.Log("t00b attack script test");
+        //Debug.Log("t00b attack script test");
 
         float thisAttackTime = timeOfAttack;
 
-        Debug.Log("last attack time: " + _lastAttackTime);
-        Debug.Log("this attack time: " + thisAttackTime);
+        //Debug.Log("last attack time: " + _lastAttackTime);
+        //Debug.Log("this attack time: " + thisAttackTime);
 
-        Debug.Log(_lastAttackTime + _attackCooldown);
+        //Debug.Log(_lastAttackTime + _attackCooldown);
 
         if(thisAttackTime >= _lastAttackTime + _attackCooldown)
         {

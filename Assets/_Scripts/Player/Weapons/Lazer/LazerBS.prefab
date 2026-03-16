@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 7108514171953605874}
   - component: {fileID: 4320488798212304016}
   m_Layer: 0
-  m_Name: w
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,3 +610,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LazerAttack
   lazer: {fileID: 11400000, guid: d4cbe0732af2c7c42895c43268385776, type: 2}
+  _lazerHitRange: {fileID: 0}
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _lazerHorizontalFOV: 60
+  _lazerVerticalFOV: 30
+  _numberOfRaysInLayer: 60
+  _layersVerticalAngles:
+  - -15
+  - -10
+  - -5
+  - 0
+  - 5
+  - 10
+  - 15
+  _lazerRange: 20

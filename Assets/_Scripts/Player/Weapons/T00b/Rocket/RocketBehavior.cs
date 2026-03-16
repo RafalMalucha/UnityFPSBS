@@ -6,19 +6,19 @@ using UnityEngine;
 public class RocketBehavior : MonoBehaviour
 {
     [SerializeField]    private float speed = 50.0f;
+    [SerializeField]    private float _lifeTime = 3f;
     [SerializeField]    private GameObject _rocketExplosion;
 
     private RaycastHit _raycastHit;
     private bool _hasRocketExploded = false;
     private float _sphereCastRadius = 0.1f;
-    private float _lifeTime = 5f;
     private float _rocketStartTime;
 
     private void Awake()
     {
         _rocketStartTime = Time.time;
-        Debug.Log("rocket spawned");
-        Debug.Log(transform.position);
+        //Debug.Log("rocket spawned");
+        //Debug.Log(transform.position);
     }
 
     void Update()
