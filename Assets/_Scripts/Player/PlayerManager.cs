@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerRaycast _playerRaycast;
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerInventory _playerInventory;
+    [SerializeField] private PlayerInteract _playerInteract;
     [SerializeField] private InputActionAsset _inputManager;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private CharacterController _characterController;
@@ -22,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     private InputAction _look;
     private InputAction _jump;
     private InputAction _dash;
+    private InputAction _use;
 
 
     private void OnEnable() 
@@ -49,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         _look = InputSystem.actions.FindAction("Look");
         _jump = InputSystem.actions.FindAction("Jump");
         _dash = InputSystem.actions.FindAction("Dash");
+        _use = InputSystem.actions.FindAction("Use");
     }
 
     
@@ -65,6 +68,11 @@ public class PlayerManager : MonoBehaviour
     public PlayerInventory GetPlayerInventory()
     {
         return _playerInventory;
+    }
+
+    public PlayerInteract GetPlayerInteract()
+    {
+        return _playerInteract;
     }
 
     public PlayerMovement GetPlayerMovement()
@@ -105,5 +113,10 @@ public class PlayerManager : MonoBehaviour
     public InputAction GetDashInputAction()
     {
         return _dash;
+    }
+
+    public InputAction GetUseInputAction()
+    {
+        return _use;
     }
 }

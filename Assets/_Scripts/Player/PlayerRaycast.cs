@@ -13,6 +13,11 @@ public class PlayerRaycast : MonoBehaviour
     {
         _ray = new Ray(_playerManager.GetMainCamera().transform.position, _playerManager.GetMainCamera().transform.forward);
 
+        if (_playerManager.GetUseInputAction().WasPressedThisFrame())
+        {
+            _playerManager.GetPlayerInteract().Interact(_ray, interactableLayer);
+        }
+
         if (_playerManager.GetAttackInputAction().IsPressed() && _playerManager.GetPlayerInventory().GetCurrentWeapon().name == "LazerBS")
         {
             _playerManager.GetPlayerInventory().GetCurrentWeapon().gameObject.GetComponent<LazerBehavior>().HandleSingleTickDamage();
