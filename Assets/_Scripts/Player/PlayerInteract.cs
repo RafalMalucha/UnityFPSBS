@@ -6,9 +6,9 @@ public class PlayerInteract : MonoBehaviour
     private RaycastHit _raycastHit;
     public void Interact(Ray ray, LayerMask interactableLayer)
     {
-        Debug.DrawRay(ray.origin, ray.direction * 5, Color.green, 5);
+        Debug.DrawRay(ray.origin, ray.direction * 2, Color.green, 5);
 
-        if (Physics.Raycast(ray, out _raycastHit, 5, interactableLayer))
+        if (Physics.Raycast(ray, out _raycastHit, 2, interactableLayer))
         {
             if (_raycastHit.collider.transform.GetComponent<ButtonDoorInteract>())
             {

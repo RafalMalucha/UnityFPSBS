@@ -2,19 +2,27 @@ using UnityEngine;
 
 public class SceneEnemyManager : MonoBehaviour
 {
+
+    //Singleton
+    public static SceneEnemyManager Instance;
     
     private SingleEnemyManager[] _listOfAliveEnemies;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         Debug.Log(GetComponentsInChildren<SingleEnemyManager>());
-        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+        _listOfAliveEnemies = FindObjectsByType<SingleEnemyManager>(FindObjectsSortMode.None);
     }
 
     // Update is called once per frame
     void Update() 
     {
-        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+        _listOfAliveEnemies = FindObjectsByType<SingleEnemyManager>(FindObjectsSortMode.None);
         string list = "";
         foreach(SingleEnemyManager sem in _listOfAliveEnemies)
         {
@@ -25,7 +33,10 @@ public class SceneEnemyManager : MonoBehaviour
 
     public void UpdateListOfAliveEnemies()
     {
-        _listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+        //_listOfAliveEnemies = GetComponentsInChildren<SingleEnemyManager>();
+        
+        _listOfAliveEnemies = FindObjectsByType<SingleEnemyManager>(FindObjectsSortMode.None);
+
     }
 
     public int GetAmountOfEnemiesAlive()
