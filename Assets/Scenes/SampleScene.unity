@@ -8186,7 +8186,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5b3cda861e8741545866ce844300c5b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16660,6 +16660,7 @@ MonoBehaviour:
   _player: {fileID: 8110084046211275036, guid: 127feef689e2d244a8ae215da9bf9575, type: 3}
   _playerSpawnPoint: {fileID: 1855457115}
   _sceneEnemyManager: {fileID: 233731333}
+  _soundscapeManager: {fileID: 939733724}
 --- !u!4 &824498279
 Transform:
   m_ObjectHideFlags: 0
@@ -16679,6 +16680,7 @@ Transform:
   - {fileID: 233731332}
   - {fileID: 410087041}
   - {fileID: 525242176}
+  - {fileID: 939733725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832358518
@@ -20558,6 +20560,103 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &939733723
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 824498279}
+    m_Modifications:
+    - target: {fileID: 1231914296991748826, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_Name
+      value: SoundscapeManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[1].allSoundscapesOfType.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[0].allSoundscapesOfType.Array.data[0].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[1].allSoundscapesOfType.Array.data[0].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[0].allSoundscapesOfType.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c7c629682fee67343a30064e1f065d07, type: 3}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[1].allSoundscapesOfType.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a98ce477294a074e95e9dd5479ddb95, type: 3}
+    - target: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+      propertyPath: allSoundscapes.Array.data[1].allSoundscapesOfType.Array.data[0].soundType
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+--- !u!114 &939733724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2664732458392350648, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+  m_PrefabInstance: {fileID: 939733723}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a63f6459ec77b4d89d175b36fdf482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundscapeManager
+--- !u!4 &939733725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2046848155250265430, guid: 5210592b7e2f64f4391c7891a57963c2, type: 3}
+  m_PrefabInstance: {fileID: 939733723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &965516907
 GameObject:
   m_ObjectHideFlags: 0
@@ -26638,7 +26737,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5b3cda861e8741545866ce844300c5b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
