@@ -4,10 +4,13 @@ public class PlayerHealth : MonoBehaviour
 {
 
     private float _currentPlayerHealth;
+    private Transform _currentRespawnPoint;
+
     [SerializeField] private float _maxPlayerHealth;
     void Start()
     {
         _currentPlayerHealth = _maxPlayerHealth;
+        _currentRespawnPoint = SceneManager.Instance.GetPlayerSpawnPoint();
     }
 
     void Update()
@@ -40,5 +43,22 @@ public class PlayerHealth : MonoBehaviour
             //die here
             Debug.Log("player died");
         }   
+    }
+
+    public void PlayerDie()
+    {
+        Debug.Log("dead");
+        //Destroy(GameObject.Find("Player(Clone)"));
+    }
+
+    public void PlayerRespawn()
+    {
+        Debug.Log("respawn");
+        PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(_currentRespawnPoint);
+    }
+
+    public void SetCurrentRespawnPoint(Transform newRespawnPoint)
+    {
+        _currentRespawnPoint = newRespawnPoint;
     }
 }

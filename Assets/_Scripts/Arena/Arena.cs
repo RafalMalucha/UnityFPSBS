@@ -1,7 +1,4 @@
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 
 public class Arena : MonoBehaviour
 {
@@ -9,6 +6,7 @@ public class Arena : MonoBehaviour
     [SerializeField] private GameObject[] _doors; 
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private GameObject[] _enemySpawnPoints;
+    [SerializeField] private Transform _arenaCompleteRespawnPoint;
     
     private BoxCollider _boxCollider;
     private bool _wasTriggered = false;
@@ -23,7 +21,6 @@ public class Arena : MonoBehaviour
     {
         if(_wasTriggered && SceneEnemyManager.Instance.GetAmountOfEnemiesAlive() == 0 && !_arenaComplete)
         {
-            Debug.Log("dupa");
             EndArena();
             _arenaComplete = true;
         }
@@ -76,5 +73,6 @@ public class Arena : MonoBehaviour
         }
 
         SoundscapeManager.Instance.PlaySoundscape(0);
+        PlayerManager.Instance.GetPlayerHealth().SetCurrentRespawnPoint(_arenaCompleteRespawnPoint);
     }
 }

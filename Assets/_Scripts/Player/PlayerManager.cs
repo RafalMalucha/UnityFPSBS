@@ -54,7 +54,6 @@ public class PlayerManager : MonoBehaviour
         _dash = InputSystem.actions.FindAction("Dash");
         _use = InputSystem.actions.FindAction("Use");
     }
-
     
     void Update()
     {

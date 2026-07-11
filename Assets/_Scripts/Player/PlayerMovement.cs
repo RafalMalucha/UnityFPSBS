@@ -192,6 +192,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetNewPlayerPosition(Transform newTransform)
+    {
+        currentVelocity = Vector3.zero;
+        move = Vector3.zero;
+
+        _playerManager.GetCharacterController().enabled = false;
+        transform.position = newTransform.position;
+        _playerManager.GetCharacterController().enabled = true;
+    }
+
     IEnumerator Dash(Vector3 direction)
     {
         lastDashTime = Time.time;
