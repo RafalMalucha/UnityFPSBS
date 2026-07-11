@@ -42,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         {
             //die here
             Debug.Log("player died");
+            PlayerRespawn();
         }   
     }
 
@@ -55,6 +56,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("respawn");
         PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(_currentRespawnPoint);
+        HealPlayerHealth(999f);
     }
 
     public void SetCurrentRespawnPoint(Transform newRespawnPoint)
