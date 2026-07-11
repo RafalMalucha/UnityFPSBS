@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 764258514438601520}
   - component: {fileID: 1117486565841004942}
   - component: {fileID: -3630127223246100827}
+  - component: {fileID: 8039233831918094849}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -468,6 +469,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 8375405765730658563}
   _playerInventory: {fileID: 764258514438601520}
   _playerInteract: {fileID: -3630127223246100827}
+  _playerHealth: {fileID: 8039233831918094849}
   _inputManager: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _mainCamera: {fileID: 2733443360860500661}
   _characterController: {fileID: 2561339095922851202}
@@ -550,3 +552,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a9c985f47d66444bacc0a9db86aedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+--- !u!114 &8039233831918094849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8110084046211275036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bc5796eb042584bb7ac6831e2c3535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  _maxPlayerHealth: 100

@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerInventory _playerInventory;
     [SerializeField] private PlayerInteract _playerInteract;
+    [SerializeField] private PlayerHealth _playerHealth;
     [SerializeField] private InputActionAsset _inputManager;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private CharacterController _characterController;
@@ -78,6 +79,11 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement GetPlayerMovement()
     {
         return _playerMovement;
+    }
+
+    public PlayerHealth GetPlayerHealth()
+    {
+        return _playerHealth;
     }
 
     public Camera GetMainCamera()
