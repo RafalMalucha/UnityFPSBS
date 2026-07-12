@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class SoundscapeManager : MonoBehaviour
 
     private Dictionary<SoundscapeType, SoundscapesOfTypeList> _soundscapeListsDictionary = new Dictionary<SoundscapeType, SoundscapesOfTypeList>();
 
-    public SoundscapeType currentSoundscape = 0;
+    public SoundscapeType _currentSoundscape = 0;
 
 
     void Start()
@@ -59,6 +60,8 @@ public class SoundscapeManager : MonoBehaviour
 
     public void PlaySoundscape(SoundscapeType currentSoundscape)
     {
+        _currentSoundscape = currentSoundscape;
+
         Destroy(GameObject.Find("Soundscape_Ambient"));
         Destroy(GameObject.Find("Soundscape_Arena"));
 
@@ -74,8 +77,25 @@ public class SoundscapeManager : MonoBehaviour
         audioSource.clip = soundscapesOfTypeList.allSoundscapesOfType[0].audioClip;
         audioSource.volume = soundscapesOfTypeList.allSoundscapesOfType[0].volume;
 
+        // audioSource.Play();
+
+        // Destroy(soundObject, soundscapesOfTypeList.allSoundscapesOfType[0].audioClip.length);
+
+        // yield return new WaitForSeconds(soundscapesOfTypeList.allSoundscapesOfType[0].audioClip.length);
+
+        // PlaySoundscape(_currentSoundscape);
+
+        StartCoroutine(PlaySoundscapeCoroutine(soundObject, audioSource, soundscapesOfTypeList));
+    }
+
+    IEnumerator PlaySoundscapeCoroutine(GameObject soundObject, AudioSource audioSource, SoundscapesOfTypeList soundscapesOfTypeList)
+    {
         audioSource.Play();
 
         Destroy(soundObject, soundscapesOfTypeList.allSoundscapesOfType[0].audioClip.length);
+
+        yield return new WaitForSeconds(soundscapesOfTypeList.allSoundscapesOfType[0].audioClip.length);
+
+        PlaySoundscape(_currentSoundscape);
     }
 }
