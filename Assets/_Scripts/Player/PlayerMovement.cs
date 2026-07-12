@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private float camera_xRotation = 0f;
     private float calculatedMoveSpeedX = 0.0f;
     private float calculatedMoveSpeedY = 0.0f;
+    private float currentJumpHeight;
+    private float currentJumpDuration;
 
     private void Awake() 
     {
@@ -93,15 +95,18 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpStartTime = Time.time;
             initialYPosition = transform.position.y;
+            Debug.Log(jumpHeight);
+            currentJumpHeight = jumpHeight;
+            currentJumpDuration = jumpDuration;
         }
 
         if(isJumping)
         {
             float elapsedTime = Time.time - jumpStartTime;
-            if (elapsedTime < jumpDuration)
+            if (elapsedTime < currentJumpDuration)
             {
-                float jumpProgress = elapsedTime / jumpDuration;
-                float yOffset = Mathf.Sin(jumpProgress * Mathf.PI) * jumpHeight;
+                float jumpProgress = elapsedTime / currentJumpDuration;
+                float yOffset = Mathf.Sin(jumpProgress * Mathf.PI) * currentJumpHeight;
                 currentVelocity.y = (initialYPosition + yOffset - transform.position.y) / Time.deltaTime;
             }
             else

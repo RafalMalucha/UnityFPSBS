@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyNavMesh
   _currentDestination: {fileID: 9113917082798988024, guid: aed308835366dc5498854d1548ca97aa, type: 3}
+  _rocketPrefab: {fileID: 621466142667158362, guid: f556d24ee6ab9fe47a6c7807d2b817b2, type: 3}
 --- !u!195 &6383959778094860604
 NavMeshAgent:
   m_ObjectHideFlags: 0

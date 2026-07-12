@@ -71,6 +71,7 @@ public class RocketBehavior : MonoBehaviour
             {
                 var singleEnemyManager = objectHit.transform.GetComponent<SingleEnemyManager>();
                 objectHit.transform.GetComponent<SingleEnemyManager>().OnHit(30);
+                PlayerManager.Instance.GetPlayerHealth().DamagePlayerHealth(15f);
             }catch(Exception){}
         }
 

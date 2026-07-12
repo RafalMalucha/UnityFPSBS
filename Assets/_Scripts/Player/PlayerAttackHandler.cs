@@ -15,7 +15,7 @@ public class PlayerAttackHandler : MonoBehaviour
     
     public void SpawnRocket()
     {
-        var rocket = Instantiate(
+        Instantiate(
             _rocketPrefab, 
             PlayerManager.Instance.GetPlayerInventory().GetWeaponHolder().GetComponentInChildren<T00bBehavior>().GetRocketSpawnPoint().position, 
             PlayerManager.Instance.GetPlayerInventory().GetWeaponHolder().transform.rotation * Quaternion.Euler(0, 90 ,0)

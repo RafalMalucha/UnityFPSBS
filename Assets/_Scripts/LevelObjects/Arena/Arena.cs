@@ -6,6 +6,7 @@ public class Arena : MonoBehaviour
     [SerializeField] private GameObject[] _doors; 
     [SerializeField] private GameObject[] _enemies;
     [SerializeField] private GameObject[] _enemySpawnPoints;
+    [SerializeField] private GameObject[] _enemyNavPointsOfInterest;
     [SerializeField] private Transform _arenaCompleteRespawnPoint;
     
     private BoxCollider _boxCollider;
@@ -54,7 +55,9 @@ public class Arena : MonoBehaviour
 
         for(int i = 0; i < _enemies.Length; i++)
         {
-            Instantiate(_enemies[i], _enemySpawnPoints[i].transform.position, Quaternion.identity);
+            GameObject newEnemy = Instantiate(_enemies[i], _enemySpawnPoints[i].transform.position, Quaternion.identity);
+            newEnemy.gameObject.name = _enemies[i].transform.name + i;
+            newEnemy.GetComponent<EnemyNavMesh>().SetPointsOfInterestArray(_enemyNavPointsOfInterest);
         }
 
         SceneEnemyManager.Instance.UpdateListOfAliveEnemies();

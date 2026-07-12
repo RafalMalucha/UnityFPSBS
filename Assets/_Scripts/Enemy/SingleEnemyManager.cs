@@ -33,11 +33,6 @@ public class SingleEnemyManager : MonoBehaviour
         ModifyEnemyHealth(calculatedDamage);
     }
 
-    public float GetEnemyHealth()
-    {
-        return _enemyHealth;
-    }
-
     public void ModifyEnemyHealth(float calculatedDamage)
     {
         _enemyHealth -= calculatedDamage;
@@ -52,5 +47,15 @@ public class SingleEnemyManager : MonoBehaviour
         Destroy(gameObject);
         //Debug.Log("die");
         //GetComponentInParent<SceneEnemyManager>().UpdateListOfAliveEnemies();
+    }
+
+    public float GetEnemyHealth()
+    {
+        return _enemyHealth;
+    }
+
+    public EnemyType GetEnemyType()
+    {
+        return _enemyType;
     }
 }
