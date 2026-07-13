@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
     public void PlayerRespawn()
     {
         Debug.Log("respawn");
-        PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(_currentRespawnPoint);
+        PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(_currentRespawnPoint.position);
         HealPlayerHealth(999f);
     }
 

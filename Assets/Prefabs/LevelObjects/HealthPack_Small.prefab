@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7759432565469950288}
   - component: {fileID: 4905718640482884771}
   - component: {fileID: 2868818885359370306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthPack_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 4092278277744714432}
   - component: {fileID: 9175395541473920838}
   - component: {fileID: 6840169305581966273}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

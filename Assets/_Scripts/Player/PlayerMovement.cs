@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     // ------------------------------------------
     private Vector3 currentVelocity = Vector3.zero;
     private bool isJumping = false;
+    private bool isMonkeyBarJumping = false;
+    private bool isJumpingFloorBounce = false;
     private float jumpStartTime;
     private float initialYPosition;
     Vector3 move;
@@ -95,9 +97,28 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpStartTime = Time.time;
             initialYPosition = transform.position.y;
-            Debug.Log(jumpHeight);
             currentJumpHeight = jumpHeight;
             currentJumpDuration = jumpDuration;
+        }
+
+        if (isMonkeyBarJumping) 
+        {
+            isJumping = true;
+            jumpStartTime = Time.time;
+            initialYPosition = transform.position.y;
+            currentJumpHeight = jumpHeight;
+            currentJumpDuration = jumpDuration;
+            isMonkeyBarJumping = false;
+        }
+
+        if (isJumpingFloorBounce)
+        {
+            isJumping = true;
+            jumpStartTime = Time.time;
+            initialYPosition = transform.position.y;
+            currentJumpHeight = jumpHeight;
+            currentJumpDuration = jumpDuration;
+            isJumpingFloorBounce = false;
         }
 
         if(isJumping)
@@ -197,14 +218,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetNewPlayerPosition(Transform newTransform)
+    public void SetNewPlayerPosition(Vector3 newPosition)
     {
         currentVelocity = Vector3.zero;
         move = Vector3.zero;
 
         _playerManager.GetCharacterController().enabled = false;
-        transform.position = newTransform.position;
+        transform.position = newPosition;
         _playerManager.GetCharacterController().enabled = true;
+    }
+
+    public IEnumerator MonkeyBar()
+    {
+        _playerManager.GetCharacterController().enabled = false;
+        Vector3 savedPlayerPosition = _playerManager.transform.position;
+
+        while(true)
+        {
+            if(_playerManager.GetJumpInputAction().WasPressedThisFrame())
+            {
+                SetNewPlayerPosition(savedPlayerPosition);
+                _playerManager.GetCharacterController().enabled = true;
+                isMonkeyBarJumping = true;
+                break;
+            }
+
+            yield return null;
+        }
     }
 
     IEnumerator Dash(Vector3 direction)
@@ -236,5 +276,15 @@ public class PlayerMovement : MonoBehaviour
     public float GetCurrentSpeed()
     {
         return Mathf.RoundToInt(move.magnitude * 100);
+    }
+
+    public Vector3 GetCurrentVelocity()
+    {
+        return currentVelocity;
+    }
+
+    public void SetIsJumpingFloorBounce(bool newValue)
+    {
+        isJumpingFloorBounce = newValue;
     }
 }

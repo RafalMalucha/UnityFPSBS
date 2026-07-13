@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5410204210752734187}
   - component: {fileID: 2180119295123529041}
   - component: {fileID: 1983016288104910519}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthPack_Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 9139574793898281267}
   - component: {fileID: 6025593656341484477}
   - component: {fileID: 3159518150154300189}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

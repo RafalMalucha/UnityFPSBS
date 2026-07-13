@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7877666998617058585}
   - component: {fileID: 8223992664804753235}
   - component: {fileID: 183886627879922974}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthPack_Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 3075034083444536985}
   - component: {fileID: 8284993763338741556}
   - component: {fileID: 6484048577616631947}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,6 +11,17 @@ public class JumpFloorTrigger : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider collider) 
+    {
+        if (collider.tag == "Player")
+        {
+            if (!PlayerManager.Instance.GetCharacterController().isGrounded)
+            {
+                PlayerManager.Instance.GetPlayerMovement().SetIsJumpingFloorBounce(true);
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider collider) 
     {
         if (collider.tag == "Player")
