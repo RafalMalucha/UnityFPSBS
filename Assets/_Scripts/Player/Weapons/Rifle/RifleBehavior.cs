@@ -35,6 +35,10 @@ public class RifleBehavior : MonoBehaviour
                 {
                     _raycastHit.collider.transform.GetComponent<EnemyHitbox>().OnHit(rifle.baseDamage);
                 }
+                if (_raycastHit.collider.transform.GetComponent<ButtonShotActivatedGate>())
+                {
+                    _raycastHit.collider.transform.GetComponent<ButtonShotActivatedGate>().GateOpen();
+                }
                 //Debug.Log("Hit: " + _raycastHit.collider.transform.parent.name);
                 //Debug.Log("Hit: " + _raycastHit.collider.transform);
             }
