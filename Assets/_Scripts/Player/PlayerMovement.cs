@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(_moveAmount[0] != 0)
             {
-                CalculateMoveSpeedX();
+                CalculateMoveSpeedX(1.0f);
             }
 
             if(_moveAmount[0] == 0)
@@ -83,13 +83,27 @@ public class PlayerMovement : MonoBehaviour
 
             if(_moveAmount[1] != 0)
             {
-                CalculateMoveSpeedY();
+                CalculateMoveSpeedY(1.0f);
             }
 
             if(_moveAmount[1] == 0)
             {
                 GradualyReduceCalculatedSpeedY();
             }
+        }
+
+        if (!_playerManager.GetCharacterController().isGrounded)
+        {
+            if(_moveAmount[0] != 0)
+            {
+                CalculateMoveSpeedX(0.1f);
+            }
+
+            if(_moveAmount[1] != 0)
+            {
+                CalculateMoveSpeedY(0.1f);
+            }
+
         }
 
         if (_playerManager.GetJumpInputAction().WasPressedThisFrame() && _playerManager.GetCharacterController().isGrounded) 
@@ -158,9 +172,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void CalculateMoveSpeedX()
+    private void CalculateMoveSpeedX(float modifier)
     {
-        calculatedMoveSpeedX += _moveAmount[0] * 50.0f;
+        calculatedMoveSpeedX += _moveAmount[0] * 50.0f * modifier;
 
         if (calculatedMoveSpeedX > 1000.0f)
         {
@@ -172,9 +186,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CalculateMoveSpeedY()
+    private void CalculateMoveSpeedY(float modifier)
     {
-        calculatedMoveSpeedY += _moveAmount[1] * 50.0f;
+        calculatedMoveSpeedY += _moveAmount[1] * 50.0f * modifier;
 
         if (calculatedMoveSpeedY > 1000.0f)
         {
