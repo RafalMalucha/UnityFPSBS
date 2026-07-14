@@ -8,6 +8,7 @@ public class SceneManager : MonoBehaviour
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private SceneEnemyManager _sceneEnemyManager;
     [SerializeField] private SoundscapeManager _soundscapeManager;
+    [SerializeField] private GameObject[] _sceneCollectibleSecrets;
     
     private void Awake()
     {
@@ -29,5 +30,10 @@ public class SceneManager : MonoBehaviour
     public Transform GetPlayerSpawnPoint()
     {
         return _playerSpawnPoint;
+    }
+
+    public int GetNumberOfAllCollectibles()
+    {
+        return _sceneCollectibleSecrets.Length;
     }
 }

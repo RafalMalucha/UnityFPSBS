@@ -67,11 +67,14 @@ public class RocketBehavior : MonoBehaviour
 
         foreach(RaycastHit objectHit in objectsHit)
         {
+            if(objectHit.transform.name == "Player(Clone)")
+            {
+                PlayerManager.Instance.GetPlayerHealth().DamagePlayerHealth(15f);
+            }
             try
             {
                 var singleEnemyManager = objectHit.transform.GetComponent<SingleEnemyManager>();
                 objectHit.transform.GetComponent<SingleEnemyManager>().OnHit(30);
-                PlayerManager.Instance.GetPlayerHealth().DamagePlayerHealth(15f);
             }catch(Exception){}
         }
 

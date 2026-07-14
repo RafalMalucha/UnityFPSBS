@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     //[SerializeField] private SpeedDisplay _speedDisplay;
     [SerializeField] private EnemiesLeftDisplay _enemiesLeftDisplay;
     [SerializeField] private UI_PlayerInfoDisplay _playerInfoDisplay;
+    [SerializeField] private UI_LevelInfoDisplay _levelInfoDisplay;
     void Start()
     {
         GameObject player = GameObject.Find("Player(Clone)");
@@ -20,6 +21,11 @@ public class UIManager : MonoBehaviour
 
         GameObject UI_PlayerInfo = GameObject.Find("UI_PlayerInfo");
         _playerInfoDisplay = UI_PlayerInfo.GetComponent<UI_PlayerInfoDisplay>();
+
+        GameObject UI_LevelInfo = GameObject.Find("UI_LevelInfo");
+        _levelInfoDisplay = UI_LevelInfo.GetComponent<UI_LevelInfoDisplay>();
+
+        _levelInfoDisplay.SetAllCollectibles(SceneManager.Instance.GetNumberOfAllCollectibles());
     }
 
     // Update is called once per frame
@@ -27,7 +33,9 @@ public class UIManager : MonoBehaviour
     {
         _playerInfoDisplay.SetNewCurrentSpeed(_playerManager.GetPlayerMovement().GetCurrentSpeed());
         _playerInfoDisplay.SetNewCurrentHealth(_playerManager.GetPlayerHealth().GetCurrentPlayerHealth());
-        _enemiesLeftDisplay.SetNewEnemiesLeft(_sceneEnemyManager.GetAmountOfEnemiesAlive());
+        //_enemiesLeftDisplay.SetNewEnemiesLeft(_sceneEnemyManager.GetAmountOfEnemiesAlive());
+        _levelInfoDisplay.SetNewEnemiesLeft(_sceneEnemyManager.GetAmountOfEnemiesAlive());
+        
     }
 
     
