@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5518791429964964103}
   - component: {fileID: 8004501594489478555}
   - component: {fileID: -2952072568470510633}
+  - component: {fileID: 434092970032045197}
   m_Layer: 6
   m_Name: FlyingPeteballEnemy
   m_TagString: Untagged
@@ -233,6 +234,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5e270714b236e4a8fd2c9272343da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpritePeteballBillboardScript
+--- !u!114 &434092970032045197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838991366817254994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d4190a7715ec984d9a3be23f741cc6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlyingPeteballEnemyNav
+  _rocketPrefab: {fileID: 621466142667158362, guid: f556d24ee6ab9fe47a6c7807d2b817b2, type: 3}
 --- !u!1 &3985299801315398350
 GameObject:
   m_ObjectHideFlags: 0

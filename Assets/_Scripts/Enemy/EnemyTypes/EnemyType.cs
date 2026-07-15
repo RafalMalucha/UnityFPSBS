@@ -5,6 +5,7 @@ public class EnemyType : ScriptableObject
 {
     public new string name;
     public Sprite sprite;
+    public EnemyNavMesh enemyNav;
     public int baseDamage;
     public int armor;
     public int speed;

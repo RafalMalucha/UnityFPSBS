@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 3436173829222423632}
   - component: {fileID: 6141176508694800439}
   - component: {fileID: 8555373805217109163}
+  - component: {fileID: 6547644603979845238}
   m_Layer: 6
   m_Name: FodderEnemy
   m_TagString: Untagged
@@ -282,6 +283,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c756835596083d4a87e48573e50d6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeAttack
+--- !u!114 &6547644603979845238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3236309815665690466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a749ffdb2b2603409275af4791c1c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FodderEnemyNav
+  _rocketPrefab: {fileID: 621466142667158362, guid: f556d24ee6ab9fe47a6c7807d2b817b2, type: 3}
 --- !u!1 &3378220762336123902
 GameObject:
   m_ObjectHideFlags: 0

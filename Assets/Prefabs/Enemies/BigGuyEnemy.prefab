@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: -8684232586330952956}
   - component: {fileID: 2982014511167533842}
   - component: {fileID: 3282021352884621513}
+  - component: {fileID: 1817442401351906341}
   m_Layer: 6
   m_Name: BigGuyEnemy
   m_TagString: Untagged
@@ -601,6 +602,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c756835596083d4a87e48573e50d6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeAttack
+--- !u!114 &1817442401351906341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3234785534455706302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac59a1fe0c02e34f8a5b9823ddb9112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BigGuyEnemyNav
+  _rocketPrefab: {fileID: 0}
 --- !u!1 &5712816053290527792
 GameObject:
   m_ObjectHideFlags: 0

@@ -174,29 +174,29 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculateMoveSpeedX(float modifier)
     {
-        calculatedMoveSpeedX += _moveAmount[0] * 50.0f * modifier;
+        calculatedMoveSpeedX += _moveAmount[0] * 25.0f * modifier;
 
-        if (calculatedMoveSpeedX > 1000.0f)
+        if (calculatedMoveSpeedX > 750.0f)
         {
-            calculatedMoveSpeedX = 1000.0f;
+            calculatedMoveSpeedX = 750.0f;
         }
-        if (calculatedMoveSpeedX < -1000.0f)
+        if (calculatedMoveSpeedX < -750.0f)
         {
-            calculatedMoveSpeedX = -1000.0f;
+            calculatedMoveSpeedX = -750.0f;
         }
     }
 
     private void CalculateMoveSpeedY(float modifier)
     {
-        calculatedMoveSpeedY += _moveAmount[1] * 50.0f * modifier;
+        calculatedMoveSpeedY += _moveAmount[1] * 25.0f * modifier;
 
-        if (calculatedMoveSpeedY > 1000.0f)
+        if (calculatedMoveSpeedY > 750.0f)
         {
-            calculatedMoveSpeedY = 1000.0f;
+            calculatedMoveSpeedY = 750.0f;
         }
-        if (calculatedMoveSpeedY < -1000.0f)
+        if (calculatedMoveSpeedY < -750.0f)
         {
-            calculatedMoveSpeedY = -1000.0f;
+            calculatedMoveSpeedY = -750.0f;
         }
     }
 
