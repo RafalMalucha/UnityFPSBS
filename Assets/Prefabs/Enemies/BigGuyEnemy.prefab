@@ -567,6 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHitbox
   _singleEnemyManager: {fileID: 0}
+  _bloodSplatter: {fileID: 1092744382822675278, guid: 2487adbcdf018734aa08d42e6560e357, type: 3}
 --- !u!136 &2982014511167533842
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -614,7 +615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac59a1fe0c02e34f8a5b9823ddb9112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BigGuyEnemyNav
-  _rocketPrefab: {fileID: 0}
 --- !u!1 &5712816053290527792
 GameObject:
   m_ObjectHideFlags: 0

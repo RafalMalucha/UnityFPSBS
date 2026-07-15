@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHitbox
   _singleEnemyManager: {fileID: 1316621213271498961}
+  _bloodSplatter: {fileID: 1092744382822675278, guid: 2487adbcdf018734aa08d42e6560e357, type: 3}
 --- !u!136 &5518791429964964103
 CapsuleCollider:
   m_ObjectHideFlags: 0
