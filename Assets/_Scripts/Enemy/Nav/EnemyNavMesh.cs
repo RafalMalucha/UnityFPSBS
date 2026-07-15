@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,7 +7,7 @@ public class EnemyNavMesh : MonoBehaviour
 {
 
     [SerializeField] private GameObject _currentDestination;
-    [SerializeField]    private GameObject _rocketPrefab;
+    [SerializeField] private GameObject _rocketPrefab;
     private GameObject[] _navPointsOfInterest;
     private Transform _movePositionTransform;
     private NavMeshAgent _navMeshAgent;
@@ -31,6 +32,10 @@ public class EnemyNavMesh : MonoBehaviour
             case "BigGuy":
                 Debug.Log("BigGuy");
                 StartCoroutine(BigGuyEnemyNav());
+                break;
+            case "FlyingPeteball":
+                Debug.Log("FlyingPeteball");
+                StartCoroutine(FlyingPeteballEnemyNav());
                 break;
             default:
                 Debug.Log("no matching enemy type");
@@ -82,7 +87,7 @@ public class EnemyNavMesh : MonoBehaviour
 
             _movePositionTransform = _navPointsOfInterest[Random.Range(0, _navPointsOfInterest.Length)].transform;
 
-            float newRandomWaitTime = Random.Range(1.0f, 5.0f);
+            float newRandomWaitTime = Random.Range(3.0f, 7.0f);
             StartCoroutine(FodderAttackTry());
 
             yield return new WaitForSeconds(newRandomWaitTime);
@@ -100,6 +105,12 @@ public class EnemyNavMesh : MonoBehaviour
             yield return new WaitForSeconds(newRandomAttackDelayTime);
             FodderAttack();
         }
+        if(attackChance <= 2.0f)
+        {
+            float newRandomAttackDelayTime = Random.Range(0.0f, 0.25f);
+            yield return new WaitForSeconds(newRandomAttackDelayTime);
+            FodderTryForMelee();
+        }
 
         yield return null;
     }
@@ -116,7 +127,53 @@ public class EnemyNavMesh : MonoBehaviour
 
     }
 
+    private void FodderTryForMelee()
+    {
+        _movePositionTransform = PlayerManager.Instance.transform;
+    }
 
+    IEnumerator FlyingPeteballEnemyNav()
+    {
+        while (true)
+        {
+            //Debug.Log("Selecting new destination from PoIs " + gameObject.name);
+
+            //_movePositionTransform = _navPointsOfInterest[Random.Range(0, _navPointsOfInterest.Length)].transform;
+
+            float newRandomWaitTime = Random.Range(3.0f, 7.0f);
+            StartCoroutine(FlyingPeteballAttackTry());
+
+            yield return new WaitForSeconds(newRandomWaitTime);
+        }
+    }
+
+    IEnumerator FlyingPeteballAttackTry()
+    {
+        Debug.Log("FlyingPeteball Attack Try");
+
+        float attackChance = Random.Range(0.0f, 6.0f);
+        if(attackChance >= 2.0f)
+        {
+            float newRandomAttackDelayTime = Random.Range(0.0f, 0.25f);
+            yield return new WaitForSeconds(newRandomAttackDelayTime);
+            FlyingPeteballAttack();
+        }
+
+        yield return null;
+    }
+
+    private void FlyingPeteballAttack()
+    {
+        Debug.Log("FlyingPeteball Attacked");
+
+        transform.LookAt(PlayerManager.Instance.transform);
+
+        var rocket = Instantiate(
+            _rocketPrefab, 
+            transform.position, 
+            transform.rotation
+        );
+    }
 
     IEnumerator BigGuyEnemyNav()
     {
@@ -126,10 +183,37 @@ public class EnemyNavMesh : MonoBehaviour
 
             _movePositionTransform = _navPointsOfInterest[Random.Range(0, _navPointsOfInterest.Length)].transform;
 
-            float newRandomWaitTime = Random.Range(4.0f, 10.0f);
+            float newRandomWaitTime = Random.Range(5.0f, 12.0f);
+            StartCoroutine(BigGuyAttackTry());
 
             yield return new WaitForSeconds(newRandomWaitTime);
         }
+    }
+
+    IEnumerator BigGuyAttackTry()
+    {
+        Debug.Log("BigGuy Attack Try");
+
+        float attackChance = Random.Range(0.0f, 6.0f);
+        // if(attackChance >= 3.0f)
+        // {
+        //     float newRandomAttackDelayTime = Random.Range(0.0f, 0.25f);
+        //     yield return new WaitForSeconds(newRandomAttackDelayTime);
+        //     FodderAttack();
+        // }
+        if(attackChance >= 2.0f)
+        {
+            float newRandomAttackDelayTime = Random.Range(0.0f, 0.25f);
+            yield return new WaitForSeconds(newRandomAttackDelayTime);
+            BigGuyTryForMelee();
+        }
+
+        yield return null;
+    }
+
+    public void BigGuyTryForMelee()
+    {
+        _movePositionTransform = PlayerManager.Instance.transform;
     }
 
     public Transform GetCurrentDestination()

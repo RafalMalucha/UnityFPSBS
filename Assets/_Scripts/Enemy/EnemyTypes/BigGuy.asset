@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyType
   name: BigGuy
   sprite: {fileID: 21300000, guid: ec399dd30b47e714897048c16e34b048, type: 3}
-  baseDamage: 10
+  baseDamage: 20
   armor: 20
-  speed: 100
+  speed: 10
   health: 100

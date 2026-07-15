@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5696382519512012613}
   - component: {fileID: 2625840112612761244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 5166158842957516273}
   - component: {fileID: 2383061743895628622}
   - component: {fileID: 8813929453040620253}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 1792724082938286384}
   - component: {fileID: 2773931918030831021}
   - component: {fileID: 9034696331066373244}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 2733443360860500661}
   - component: {fileID: 8357641123177682715}
   - component: {fileID: 9196968435718344587}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1117486565841004942}
   - component: {fileID: -3630127223246100827}
   - component: {fileID: 8039233831918094849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
