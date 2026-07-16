@@ -176,13 +176,13 @@ public class PlayerMovement : MonoBehaviour
     {
         calculatedMoveSpeedX += _moveAmount[0] * 25.0f * modifier;
 
-        if (calculatedMoveSpeedX > 750.0f)
+        if (calculatedMoveSpeedX > 1000.0f)
         {
-            calculatedMoveSpeedX = 750.0f;
+            calculatedMoveSpeedX = 1000.0f;
         }
-        if (calculatedMoveSpeedX < -750.0f)
+        if (calculatedMoveSpeedX < -1000.0f)
         {
-            calculatedMoveSpeedX = -750.0f;
+            calculatedMoveSpeedX = -1000.0f;
         }
     }
 
@@ -190,13 +190,13 @@ public class PlayerMovement : MonoBehaviour
     {
         calculatedMoveSpeedY += _moveAmount[1] * 25.0f * modifier;
 
-        if (calculatedMoveSpeedY > 750.0f)
+        if (calculatedMoveSpeedY > 1000.0f)
         {
-            calculatedMoveSpeedY = 750.0f;
+            calculatedMoveSpeedY = 1000.0f;
         }
-        if (calculatedMoveSpeedY < -750.0f)
+        if (calculatedMoveSpeedY < -1000.0f)
         {
-            calculatedMoveSpeedY = -750.0f;
+            calculatedMoveSpeedY = -1000.0f;
         }
     }
 
