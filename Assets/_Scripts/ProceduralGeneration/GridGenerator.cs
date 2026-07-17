@@ -10,6 +10,18 @@ public class GridGenerator : MonoBehaviour
     [SerializeField] private int _gridSizeZ;
     [SerializeField] private int _gridOffset;
 
+    private Vector3 wallNorthPositionOffset = new Vector3(0, 3, 10);
+    private Quaternion wallNorhtRotation = Quaternion.identity;
+
+    private Vector3 wallEastPositionOffset = new Vector3(10, 3, 0);
+    private Quaternion wallEastRotation = Quaternion.identity * Quaternion.Euler(0, 90, 0);
+
+    private Vector3 wallSouthPositionOffset = new Vector3(0, 3, -10);
+    private Quaternion wallSouthRotation = Quaternion.identity;
+
+    private Vector3 wallWestPositionOffset = new Vector3(-10, 3, 0);
+    private Quaternion wallWestRotation = Quaternion.identity * Quaternion.Euler(0, 90, 0);
+
     private void OnValidate() {
         BuildGrid();
     }
@@ -29,65 +41,74 @@ public class GridGenerator : MonoBehaviour
             };
         }
 
+        var counter = 0;
+
         for(int x = 0; x < _gridSizeX; x++)
         {
             for(int z = 0; z < _gridSizeZ; z++)
             {
+
                 Vector3 position = new Vector3(x * _gridOffset, 0, z * _gridOffset);
 
                 GameObject floor = Instantiate(_floor, position, Quaternion.identity);
 
                 floor.transform.SetParent(this.transform);
+                floor.transform.name = "floor_" + x + "_" + z;
 
-                float wallSeedX = UnityEngine.Random.Range(0.0f, 4.0f);
-                float wallSeedZ = UnityEngine.Random.Range(0.0f, 4.0f);
+                int wallSeed = (int)Math.Floor(UnityEngine.Random.Range(0.0f, 15.0f));
+                string wallSeedBinary = Convert.ToString(wallSeed, 2);
+                wallSeedBinary = "0000" + wallSeedBinary;
+                wallSeedBinary = wallSeedBinary.Substring(wallSeedBinary.Length - 4);
 
-                if(Math.Floor(wallSeedX) == 0)
-                {
-                    Debug.Log("No walls");
-                }
-                if(Math.Floor(wallSeedX) == 1)
-                {
-                    GameObject wall = Instantiate(_wall, floor.transform.position + new Vector3(10, 3, 0), Quaternion.identity * Quaternion.Euler(0, 90, 0));
-                    wall.transform.SetParent(floor.transform);
-                }
-                if(Math.Floor(wallSeedX) == 2)
-                {
-                    GameObject wall = Instantiate(_wall, floor.transform.position + new Vector3(-10, 3, 0), Quaternion.identity * Quaternion.Euler(0, 90, 0));
-                    wall.transform.SetParent(floor.transform);
-                }
-                if(Math.Floor(wallSeedX) == 3)
-                {
-                    GameObject wall1 = Instantiate(_wall, floor.transform.position + new Vector3(-10, 3, 0), Quaternion.identity * Quaternion.Euler(0, 90, 0));
-                    wall1.transform.SetParent(floor.transform);
+                //floor.GetComponent<GridCell>().GridCellSetup(string newWallSeed, int newCoordX, int newCoordZ)
 
-                    GameObject wall2 = Instantiate(_wall, floor.transform.position + new Vector3(10, 3, 0), Quaternion.identity * Quaternion.Euler(0, 90, 0));
-                    wall2.transform.SetParent(floor.transform);
+                if(wallSeedBinary[0] - '0' == 1 | z == _gridSizeZ - 1)
+                {
+                    SpawnNorthWall(floor);
+                }
+                if(wallSeedBinary[1] - '0' == 1 | x == _gridSizeX - 1)
+                {
+                    SpawnEastWall(floor);
+                }
+                if(wallSeedBinary[2] - '0' == 1 | z == 0)
+                {
+                    SpawnSouthWall(floor);
+                }
+                if(wallSeedBinary[3] - '0' == 1 | x == 0)
+                {
+                    SpawnWestWall(floor);
                 }
 
-                if(Math.Floor(wallSeedZ) == 0)
-                {
-                    Debug.Log("No walls");
-                }
-                if(Math.Floor(wallSeedZ) == 1)
-                {
-                    GameObject wall = Instantiate(_wall, floor.transform.position + new Vector3(0, 3, 10), Quaternion.identity);
-                    wall.transform.SetParent(floor.transform);
-                }
-                if(Math.Floor(wallSeedZ) == 2)
-                {
-                    GameObject wall = Instantiate(_wall, floor.transform.position + new Vector3(0, 3, -10), Quaternion.identity);
-                    wall.transform.SetParent(floor.transform);
-                }
-                if(Math.Floor(wallSeedZ) == 3)
-                {
-                    GameObject wall1 = Instantiate(_wall, floor.transform.position + new Vector3(0, 3, -10), Quaternion.identity);
-                    wall1.transform.SetParent(floor.transform);
-
-                    GameObject wall2 = Instantiate(_wall, floor.transform.position + new Vector3(0, 3, 10), Quaternion.identity);
-                    wall2.transform.SetParent(floor.transform);
-                }
+                counter++;
             }
         }
+    }
+
+    private void SpawnNorthWall(GameObject floor)
+    {
+        GameObject wallNorth = Instantiate(_wall, floor.transform.position + wallNorthPositionOffset, wallNorhtRotation);
+        wallNorth.transform.SetParent(floor.transform);
+        wallNorth.transform.name = "wall_north";
+    }
+
+    private void SpawnEastWall(GameObject floor)
+    {
+        GameObject wallEast = Instantiate(_wall, floor.transform.position + wallEastPositionOffset, wallEastRotation);
+        wallEast.transform.SetParent(floor.transform);
+        wallEast.transform.name = "wall_east";
+    }
+
+    private void SpawnSouthWall(GameObject floor)
+    {
+        GameObject wallSouth = Instantiate(_wall, floor.transform.position + wallSouthPositionOffset, wallSouthRotation);
+        wallSouth.transform.SetParent(floor.transform);
+        wallSouth.transform.name = "wall_south";
+    }
+
+    private void SpawnWestWall(GameObject floor)
+    {
+        GameObject wallWest = Instantiate(_wall, floor.transform.position + wallWestPositionOffset, wallWestRotation);
+        wallWest.transform.SetParent(floor.transform);
+        wallWest.transform.name = "wall_west";
     }
 }
