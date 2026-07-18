@@ -7,26 +7,23 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] private GridManager _grid;
     [SerializeField] private PathVisualizer _pv;
 
-    [SerializeField] private List<Node> _openSet = new List<Node>();
-    [SerializeField] private HashSet<Node> _closedSet = new HashSet<Node>();
-    [SerializeField] private List<Node> _path = new List<Node>();
+    [SerializeField] private List<Node> _openSet;
+    [SerializeField] private HashSet<Node> _closedSet;
+    [SerializeField] private List<Node> _path;
 
     private void OnValidate() 
     {
         UnityEditor.EditorApplication.delayCall+=()=>
         {
-            FindPath(_grid.GetNode(0, 0), _grid.GetNode(9, 9));
+            FindPath(_grid.GetNode(_grid.GetEntryPoint().x, _grid.GetEntryPoint().y), _grid.GetNode(_grid.GetExitPoint().x, _grid.GetExitPoint().y));
         };
     }
     
     public List<Node> FindPath(Node startNode, Node targetNode)
     {
+        _openSet = new List<Node>();
+        _closedSet = new HashSet<Node>();
         _openSet.Add(startNode);
-        Debug.Log(_openSet.Count);
-        foreach(Node node in _openSet)
-        {
-            Debug.Log(node.GridPosition);
-        }
 
         while (_openSet.Count > 0)
         {
@@ -67,13 +64,13 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log(_closedSet.Count);
         return null;
     }
 
     private List<Node> RetracePath(Node startNode, Node targetNode)
     {
+        _path = new List<Node>();
+
         Node currentNode = targetNode;
 
         while(currentNode != startNode)
@@ -101,5 +98,10 @@ public class Pathfinder : MonoBehaviour
         int dy = Mathf.Abs(currentNode.GridPosition.y - targetNode.GridPosition.y);
 
         return (dx + dy) * 10;
+    }
+
+    public void ReSetGrid(GridManager gridManager)
+    {
+        _grid = gridManager;
     }
 }

@@ -3582,6 +3582,7 @@ GameObject:
   - component: {fileID: 503554692}
   - component: {fileID: 503554691}
   - component: {fileID: 503554693}
+  - component: {fileID: 503554694}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -3601,11 +3602,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034313c17e2401f479e30f1a4353ae67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  _gridSizeX: 10
-  _gridSizeZ: 10
-  _cellSize: 5
+  _gridSizeX: 15
+  _gridSizeZ: 15
+  _cellSize: 15
   _entryNodeCoord: {x: 0, y: 0}
-  _exitNodeCoord: {x: 9, y: 9}
+  _exitNodeCoord: {x: 13, y: 14}
+  _pathfinder: {fileID: 503554693}
 --- !u!4 &503554692
 Transform:
   m_ObjectHideFlags: 0
@@ -3634,6 +3636,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pathfinder
   _grid: {fileID: 503554691}
+  _pv: {fileID: 503554694}
+--- !u!114 &503554694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503554690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55df9f1773ad15449b052d16e1cbc86d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PathVisualizer
 --- !u!1 &506549634
 GameObject:
   m_ObjectHideFlags: 0

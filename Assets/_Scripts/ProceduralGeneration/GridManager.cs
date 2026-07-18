@@ -22,6 +22,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2Int _entryNodeCoord;
     [SerializeField] private Vector2Int _exitNodeCoord;
 
+    [Header("Pathfinder")]
+    [SerializeField] private Pathfinder _pathfinder;
+
     private Node _currentNode;
     private List<Node> _currentNodeNeighbors;
 
@@ -34,7 +37,8 @@ public class GridManager : MonoBehaviour
     {
         BuildGrid();
         _currentNode = GetNode(_entryNodeCoord.x, _entryNodeCoord.y);
-        _currentNodeNeighbors = GetNeighborNodes(_currentNode);
+        _pathfinder.ReSetGrid(this);
+        _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
     }
 
     private void BuildGrid()
@@ -71,18 +75,8 @@ public class GridManager : MonoBehaviour
             Gizmos.DrawWireCube(node.WorldPosition, new Vector3(_cellSize, 1.0f, _cellSize));
 
             #if UNITY_EDITOR
-            Handles.Label(node.WorldPosition, $"{node.GridPosition.x},{node.GridPosition.y}");
+            Handles.Label(node.WorldPosition, $"{node.GridPosition.x}, {node.GridPosition.y}");
             #endif
-        }
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawCube(_currentNode.WorldPosition, new Vector3(1.0f, 1.0f, 1.0f));
-
-        Gizmos.color = Color.orange;
-
-        foreach(Node neighbor in _currentNodeNeighbors)
-        {
-            Gizmos.DrawCube(neighbor.WorldPosition, new Vector3(1.0f, 1.0f, 1.0f));
         }
     }
 
@@ -129,6 +123,11 @@ public class GridManager : MonoBehaviour
     public Vector2Int GetExitPoint()
     {
         return _exitNodeCoord;
+    }
+
+    public Vector2Int GetEntryPoint()
+    {
+        return _entryNodeCoord;
     }
 }
 
