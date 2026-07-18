@@ -6,6 +6,7 @@ public class Pathfinder : MonoBehaviour
 {
     [SerializeField] private GridManager _grid;
     [SerializeField] private PathVisualizer _pv;
+    [SerializeField] private LevelGenerator _levelGenerator;
 
     [SerializeField] private List<Node> _openSet;
     [SerializeField] private HashSet<Node> _closedSet;
@@ -60,7 +61,6 @@ public class Pathfinder : MonoBehaviour
 
                     neighbor.Parent = currentNode;
                     _openSet.Add(neighbor);
-                    Debug.Log("added " + neighbor.GridPosition);
                 }
             }
         }
@@ -82,12 +82,8 @@ public class Pathfinder : MonoBehaviour
         _path.Add(startNode);
         _path.Reverse();
 
-        foreach(Node node in _path)
-        {
-            Debug.Log(node.GridPosition);
-        }
-
         _pv.SetNewPath(_path);
+        _levelGenerator.SetNewPath(_path);
 
         return _path;
     }
@@ -103,5 +99,10 @@ public class Pathfinder : MonoBehaviour
     public void ReSetGrid(GridManager gridManager)
     {
         _grid = gridManager;
+    }
+
+    public List<Node> GetCurrentPath()
+    {
+        return _path;
     }
 }

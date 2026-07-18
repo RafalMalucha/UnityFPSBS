@@ -15,7 +15,7 @@ public class PathVisualizer : MonoBehaviour
         foreach (Node node in _path)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawCube(node.WorldPosition, new Vector3(5.0f, 5.0f, 5.0f));
+            Gizmos.DrawCube(node.WorldPosition, new Vector3(0.5f, 0.5f, 0.5f));
         }
     }
 
@@ -23,7 +23,5 @@ public class PathVisualizer : MonoBehaviour
     {
         _path = new List<Node>();
         _path = newPath;
-        Debug.Log("-----------");
-        Debug.Log("path lenght " + _path.Count);
     }
 }
