@@ -3604,8 +3604,8 @@ MonoBehaviour:
   _gridSizeX: 10
   _gridSizeZ: 10
   _cellSize: 5
-  _entryNode: {x: 0, y: 0}
-  _exitNode: {x: 9, y: 9}
+  _entryNodeCoord: {x: 0, y: 0}
+  _exitNodeCoord: {x: 9, y: 9}
 --- !u!4 &503554692
 Transform:
   m_ObjectHideFlags: 0
