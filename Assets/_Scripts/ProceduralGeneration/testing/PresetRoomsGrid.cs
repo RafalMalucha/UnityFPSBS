@@ -7,7 +7,8 @@ public class PresetRoomsGrid : MonoBehaviour
     [SerializeField] private int _gridSizeX;
     [SerializeField] private int _gridSizeZ;
     [SerializeField] private int _gridOffset;
-    private void OnValidate() {
+    private void OnValidate() 
+    {
         BuildGrid();
     }
 
@@ -26,8 +27,6 @@ public class PresetRoomsGrid : MonoBehaviour
             };
         }
 
-        var counter = 0;
-
         for(int x = 0; x < _gridSizeX; x++)
         {
             for(int z = 0; z < _gridSizeZ; z++)
@@ -38,9 +37,7 @@ public class PresetRoomsGrid : MonoBehaviour
                 GameObject room = Instantiate(_rooms[Random.Range(0, _rooms.Length)], position, Quaternion.identity);
 
                 room.transform.SetParent(this.transform);
-                room.transform.name = "floor_" + x + "_" + z;
-
-                counter++;
+                room.transform.name = "room_" + x + "_" + z;
             }
         }
     }
