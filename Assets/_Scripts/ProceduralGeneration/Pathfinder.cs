@@ -12,6 +12,13 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] private HashSet<Node> _closedSet;
     [SerializeField] private List<Node> _path;
 
+    private void Awake()
+    {
+        _grid = GetComponent<GridManager>();
+        _pv = GetComponent<PathVisualizer>();
+        _levelGenerator = GetComponent<LevelGenerator>();
+    }
+
     private void OnValidate() 
     {
         UnityEditor.EditorApplication.delayCall+=()=>

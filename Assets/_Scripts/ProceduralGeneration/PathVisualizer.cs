@@ -14,8 +14,14 @@ public class PathVisualizer : MonoBehaviour
 
         foreach (Node node in _path)
         {
+
+            var pos = new Vector3(
+                this.transform.position.x + (node.GridPosition.x * GetComponent<GridManager>().GetCellSize()), 
+                this.transform.position.y, 
+                this.transform.position.z + (node.GridPosition.y * GetComponent<GridManager>().GetCellSize())
+            );
             Gizmos.color = Color.green;
-            Gizmos.DrawCube(node.WorldPosition, new Vector3(0.5f, 0.5f, 0.5f));
+            Gizmos.DrawCube(pos, new Vector3(0.5f, 0.5f, 0.5f));
         }
     }
 

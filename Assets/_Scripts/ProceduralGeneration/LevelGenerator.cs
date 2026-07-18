@@ -10,9 +10,17 @@ public class LevelGenerator : MonoBehaviour
     [Header("Rooms")]
     [SerializeField] private GameObject[] _rooms;
     [SerializeField] private GameObject _testRoom;
+    [SerializeField] private GameObject _entryAndExitRoom;
+    [SerializeField] private GameObject _cornerRoom;
 
     [Header("Path")]
     [SerializeField] private List<Node> _path;
+
+    private void Awake()
+    {
+        _grid = GetComponent<GridManager>();
+        _pathfinder = GetComponent<Pathfinder>();
+    }
 
     private void OnValidate() 
     {
@@ -30,11 +38,44 @@ public class LevelGenerator : MonoBehaviour
 
     public void BuildLevel()
     {
-        foreach(Node node in _path)
+        for(int i = 0; i < _path.Count; i++)
         {
-            GameObject room = Instantiate(_testRoom, new Vector3(node.WorldPosition.x, 0f, node.WorldPosition.z), Quaternion.identity);
-            room.name = "room_" + node.GridPosition.x + "_" + node.GridPosition.y;
-            room.transform.SetParent(this.transform);
+            var pos = new Vector3(
+                this.transform.position.x + (_path[i].GridPosition.x * _grid.GetCellSize()), 
+                this.transform.position.y, 
+                this.transform.position.z + (_path[i].GridPosition.y * _grid.GetCellSize())
+            );
+
+            if(i == 0 || i == _path.Count - 1)
+            {
+                GameObject entryRoom = Instantiate(_entryAndExitRoom, pos, Quaternion.identity);
+                entryRoom.name = "entryAndExitRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                entryRoom.transform.SetParent(this.transform);
+            }
+            else
+            {
+                if((_path[i - 1].GridPosition.y ==_path[i].GridPosition.y) && (_path[i].GridPosition.y == _path[i + 1].GridPosition.y))
+                {
+                    GameObject room = Instantiate(_testRoom, pos, Quaternion.identity * Quaternion.Euler(0, 90, 0));
+                    room.name = "room_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                    room.transform.SetParent(this.transform);
+                } 
+                else
+                {
+                    if((_path[i - 1].GridPosition.x ==_path[i].GridPosition.x) && (_path[i].GridPosition.x == _path[i + 1].GridPosition.x))
+                    {
+                        GameObject room = Instantiate(_testRoom, pos, Quaternion.identity);
+                        room.name = "room_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                        room.transform.SetParent(this.transform);
+                    } 
+                    else
+                    {
+                        GameObject entryRoom = Instantiate(_entryAndExitRoom, pos, Quaternion.identity);
+                        entryRoom.name = "entryAndExitRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                        entryRoom.transform.SetParent(this.transform);
+                    }
+                }
+            }
         }
     }
 

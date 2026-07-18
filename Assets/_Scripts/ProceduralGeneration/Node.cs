@@ -3,7 +3,7 @@ using UnityEngine;
 public class Node
 {
     public Vector2Int GridPosition;
-    public Vector3 WorldPosition;
+    //public Vector3 WorldPosition;
     public int RandomAdditionalCost;
 
     public int gCost;
@@ -12,10 +12,9 @@ public class Node
 
     public Node Parent;
 
-    public Node(Vector2Int gridPos, Vector3 worldPos)
+    public Node(Vector2Int gridPos)
     {
         GridPosition = gridPos;
-        WorldPosition = worldPos;
         RandomAdditionalCost = Random.Range(0, 100);
     }
 }

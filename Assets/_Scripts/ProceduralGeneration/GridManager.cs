@@ -31,6 +31,12 @@ public class GridManager : MonoBehaviour
     private Node _currentNode;
     private List<Node> _currentNodeNeighbors;
 
+    private void Awake()
+    {
+        _pathfinder = GetComponent<Pathfinder>();
+        _levelGenerator = GetComponent<LevelGenerator>();
+    }
+
     void Start()
     {
         BuildGrid();
@@ -61,9 +67,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < _gridSizeZ; y++)
             {
-                Vector3 worldPosition = new Vector3(x * _cellSize, 0f, y * _cellSize);
-
-                grid[x, y] = new Node(new Vector2Int(x, y), worldPosition);
+                grid[x, y] = new Node(new Vector2Int(x, y));
             }
         }
     }
@@ -75,11 +79,20 @@ public class GridManager : MonoBehaviour
 
         foreach (Node node in grid)
         {
+            var pos = new Vector3(
+                this.transform.position.x + (node.GridPosition.x * _cellSize), 
+                this.transform.position.y, 
+                this.transform.position.z + (node.GridPosition.y * _cellSize)
+            );
+
             Gizmos.color = Color.white;
-            Gizmos.DrawWireCube(node.WorldPosition, new Vector3(_cellSize, 1.0f, _cellSize));
+            Gizmos.DrawWireCube(
+                pos, 
+                new Vector3(_cellSize, 1.0f, _cellSize)
+                );
 
             #if UNITY_EDITOR
-            Handles.Label(node.WorldPosition, $"{node.GridPosition.x}, {node.GridPosition.y}");
+            Handles.Label(pos, $"{node.GridPosition.x}, {node.GridPosition.y}");
             #endif
         }
     }
@@ -132,6 +145,11 @@ public class GridManager : MonoBehaviour
     public Vector2Int GetEntryPoint()
     {
         return _entryNodeCoord;
+    }
+
+    public int GetCellSize()
+    {
+        return _cellSize;
     }
 }
 
