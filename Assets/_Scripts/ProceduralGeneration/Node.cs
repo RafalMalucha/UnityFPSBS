@@ -15,6 +15,6 @@ public class Node
     public Node(Vector2Int gridPos)
     {
         GridPosition = gridPos;
-        RandomAdditionalCost = Random.Range(0, 100);
+        RandomAdditionalCost = Random.Range(0, 1000);
     }
 }

@@ -151,5 +151,15 @@ public class GridManager : MonoBehaviour
     {
         return _cellSize;
     }
+
+    public int GetGridSizeX()
+    {
+        return _gridSizeX;
+    }
+
+    public int GetGridSizeZ()
+    {
+        return _gridSizeZ;
+    }
 }
 

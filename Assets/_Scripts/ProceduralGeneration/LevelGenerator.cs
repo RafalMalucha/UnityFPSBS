@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -8,14 +9,17 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Pathfinder _pathfinder;
 
     [Header("Rooms")]
-    [SerializeField] private GameObject[] _rooms;
+    [SerializeField] private GameObject[] _corridorRooms;
     [SerializeField] private GameObject _testRoom;
     [SerializeField] private GameObject _entryAndExitRoom;
     [SerializeField] private GameObject _cornerRoom;
     [SerializeField] private GameObject _longRoom;
+    [SerializeField] private GameObject _arenaRoom;
 
     [Header("Path")]
     [SerializeField] private List<Node> _path;
+
+    private List<Node> _allOccupiedNodes = new List<Node>();
 
     private void Awake()
     {
@@ -32,14 +36,15 @@ public class LevelGenerator : MonoBehaviour
                 UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
             };
         }
-
         _path = _pathfinder.GetCurrentPath();
+        _allOccupiedNodes = new List<Node>();
         GenerateLevel();
     }
 
     public List<RoomType> GenerateLevel()
     {
         List<RoomType> generatedRoomTypes = new List<RoomType>();
+        _allOccupiedNodes = new List<Node>();
 
         for(int i = 0; i < _path.Count; i++)
         {
@@ -59,8 +64,8 @@ public class LevelGenerator : MonoBehaviour
                 {
                     generatedRoomTypes.Add(RoomType.Corner);
                 }
-
             }
+            _allOccupiedNodes.Add(_path[i]);
         }
 
         ReplaceLongStraights(generatedRoomTypes, _path);
@@ -72,13 +77,28 @@ public class LevelGenerator : MonoBehaviour
     {
         for(int i = 1; i < generatedRoomTypes.Count - 1; i++)
         {
-            Debug.Log(generatedRoomTypes[i]);
-
             if(generatedRoomTypes[i - 1] == RoomType.Straight && generatedRoomTypes[i] == RoomType.Straight && generatedRoomTypes[i + 1] == RoomType.Straight)
             {
+                int random = Random.Range(0, 2);
+
                 generatedRoomTypes[i - 1] = RoomType.None;
-                generatedRoomTypes[i] = RoomType.Straight_Long;
                 generatedRoomTypes[i + 1] = RoomType.None;
+
+                if(random != 0)
+                {
+                    generatedRoomTypes[i] = RoomType.Straight_Long;
+                } 
+                else
+                {
+                    if(CheckIfArenaAbleToSpawn(_path[i - 1], _path[i]))
+                    {
+                        generatedRoomTypes[i] = RoomType.Arena;
+                        ReserveNodesForArena(_path[i - 1], _path[i]);
+                    } else
+                    {
+                        generatedRoomTypes[i] = RoomType.Straight_Long;
+                    }
+                }
             } 
         }
 
@@ -110,17 +130,27 @@ public class LevelGenerator : MonoBehaviour
                     break;
 
                 case RoomType.Straight:
+
+                    int randomRoom = Random.Range(0, _corridorRooms.Length);
+
                     Quaternion straitghtRoomRotation = GetRoomRotation(_path[i - 1], _path[i], _path[i + 1]);
-                    GameObject room = Instantiate(_testRoom, pos, straitghtRoomRotation);
+                    GameObject room = Instantiate(_corridorRooms[randomRoom], pos, straitghtRoomRotation);
                     room.name = "Room_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     room.transform.SetParent(this.transform);
                     break;
 
                 case RoomType.Straight_Long:
                     Quaternion longStraightRotation = GetRoomRotation(_path[i - 1], _path[i], _path[i + 1]);
+
                     GameObject longRoom = Instantiate(_longRoom, pos, longStraightRotation);
                     longRoom.name = "LongRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     longRoom.transform.SetParent(this.transform);
+                    break;
+
+                case RoomType.Arena:
+                    GameObject arenaRoom = Instantiate(_arenaRoom, pos, Quaternion.identity);
+                    arenaRoom.name = "ArenaRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                    arenaRoom.transform.SetParent(this.transform);
                     break;
 
                 default:
@@ -128,6 +158,10 @@ public class LevelGenerator : MonoBehaviour
                     break;
             }
         }
+        Debug.Log("_path.Count");
+        Debug.Log(_path.Count);
+        Debug.Log("_allOccupiedNodes.Count");
+        Debug.Log(_allOccupiedNodes.Count);
     }
 
     private RoomType GetRoomType(Node previous, Node current, Node next)
@@ -152,6 +186,57 @@ public class LevelGenerator : MonoBehaviour
             return Quaternion.Euler(0, 90, 0);
         }
         return Quaternion.identity;
+    }
+
+    private bool CheckIfArenaAbleToSpawn(Node prevNode, Node potentialSpawnNode)
+    {
+        if(prevNode.GridPosition.x == potentialSpawnNode.GridPosition.x)
+        {
+            bool ableToSpawn = (
+                potentialSpawnNode.GridPosition.x - 1 >= 0 && 
+                potentialSpawnNode.GridPosition.y + 1 < _grid.GetGridSizeZ() &&
+                potentialSpawnNode.GridPosition.y - 1 >= 0 &&
+                potentialSpawnNode.GridPosition.x + 1 < _grid.GetGridSizeX()
+            );
+
+            return ableToSpawn;
+        } 
+        if(prevNode.GridPosition.x == potentialSpawnNode.GridPosition.x)
+        {
+            bool ableToSpawn = (
+                potentialSpawnNode.GridPosition.x - 1 >= 0 && 
+                potentialSpawnNode.GridPosition.y + 1 < _grid.GetGridSizeZ() &&
+                potentialSpawnNode.GridPosition.y - 1 >= 0 &&
+                potentialSpawnNode.GridPosition.x + 1 < _grid.GetGridSizeX()
+            );
+
+            return ableToSpawn;
+        } 
+        return false;
+    }
+
+    private void ReserveNodesForArena(Node prevNode, Node arenaSpawnNode)
+    {
+        if(prevNode.GridPosition.x == arenaSpawnNode.GridPosition.x)
+        {
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x - 1, arenaSpawnNode.GridPosition.y + 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x - 1, arenaSpawnNode.GridPosition.y));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x - 1, arenaSpawnNode.GridPosition.y - 1));
+
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y + 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y - 1));
+        } 
+        if(prevNode.GridPosition.y == arenaSpawnNode.GridPosition.y)
+        {
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x - 1, arenaSpawnNode.GridPosition.y + 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x, arenaSpawnNode.GridPosition.y + 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y + 1));
+
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x - 1, arenaSpawnNode.GridPosition.y - 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x, arenaSpawnNode.GridPosition.y - 1));
+            _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y - 1));
+        } 
     }
 
     public void SetNewPath(List<Node> newPath)
