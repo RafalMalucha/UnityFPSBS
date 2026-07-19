@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
+using System.Collections;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -28,6 +31,9 @@ public class GridManager : MonoBehaviour
     [Header("LevelGenerator")]
     [SerializeField] private LevelGenerator _levelGenerator;
 
+    [Header("Nav")]
+    [SerializeField] private NavMeshSurface _navSurface;
+
     private Node _currentNode;
     private List<Node> _currentNodeNeighbors;
 
@@ -35,30 +41,55 @@ public class GridManager : MonoBehaviour
     {
         _pathfinder = GetComponent<Pathfinder>();
         _levelGenerator = GetComponent<LevelGenerator>();
+        if(GameObject.Find("NavMesh Surface"))
+        {
+            _navSurface = GameObject.Find("NavMesh Surface").GetComponent<NavMeshSurface>();
+            //_navSurface.BuildNavMesh();
+        }
     }
 
     void Start()
-    {
-        BuildGrid();
-    }
-
-    private void OnValidate() 
     {
         BuildGrid();
         _currentNode = GetNode(_entryNodeCoord.x, _entryNodeCoord.y);
         _pathfinder.ReSetGrid(this);
         _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
         _levelGenerator.GenerateLevel();
+        StartCoroutine(WaitAndBuildNavCoroutine());
+
     }
+
+    IEnumerator WaitAndBuildNavCoroutine()
+    {
+        yield return new WaitForSeconds(0.25f);
+        _navSurface.BuildNavMesh();
+    }
+
+    // private void OnValidate() 
+    // {
+    //     BuildGrid();
+    //     _currentNode = GetNode(_entryNodeCoord.x, _entryNodeCoord.y);
+    //     _pathfinder.ReSetGrid(this);
+    //     _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
+    //     _levelGenerator.GenerateLevel();
+    //     _navSurface.BuildNavMesh();
+    // }
 
     private void BuildGrid()
     {
+        #if UNITY_EDITOR
         foreach(Transform child in transform)
         {
             UnityEditor.EditorApplication.delayCall+=()=>
             {
                 UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
             };
+        }
+        #endif
+
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
         }
 
         grid = new Node[_gridSizeX, _gridSizeZ];
@@ -160,6 +191,11 @@ public class GridManager : MonoBehaviour
     public int GetGridSizeZ()
     {
         return _gridSizeZ;
+    }
+
+    public NavMeshSurface GetNavSurface()
+    {
+        return _navSurface;
     }
 }
 

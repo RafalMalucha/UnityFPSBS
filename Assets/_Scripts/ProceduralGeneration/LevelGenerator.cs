@@ -25,6 +25,12 @@ public class LevelGenerator : MonoBehaviour
     {
         _grid = GetComponent<GridManager>();
         _pathfinder = GetComponent<Pathfinder>();
+        //_grid.GetNavSurface().BuildNavMesh();
+    }
+
+    private void Start()
+    {
+        //_grid.GetNavSurface().BuildNavMesh();
     }
 
     private void OnValidate() 
@@ -39,6 +45,7 @@ public class LevelGenerator : MonoBehaviour
         _path = _pathfinder.GetCurrentPath();
         _allOccupiedNodes = new List<Node>();
         GenerateLevel();
+        //_grid.GetNavSurface().BuildNavMesh();
     }
 
     public List<RoomType> GenerateLevel()
@@ -162,6 +169,8 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log(_path.Count);
         Debug.Log("_allOccupiedNodes.Count");
         Debug.Log(_allOccupiedNodes.Count);
+
+        //_grid.GetNavSurface().BuildNavMesh();
     }
 
     private RoomType GetRoomType(Node previous, Node current, Node next)
