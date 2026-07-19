@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
         _currentNode = GetNode(_entryNodeCoord.x, _entryNodeCoord.y);
         _pathfinder.ReSetGrid(this);
         _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
-        _levelGenerator.BuildLevel();
+        _levelGenerator.GenerateLevel();
     }
 
     private void BuildGrid()
