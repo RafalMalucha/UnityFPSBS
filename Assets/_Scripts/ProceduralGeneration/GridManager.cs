@@ -8,7 +8,7 @@ using System.Collections;
 using UnityEditor;
 #endif
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 
 public class GridManager : MonoBehaviour
 {
@@ -72,20 +72,25 @@ public class GridManager : MonoBehaviour
     //     _pathfinder.ReSetGrid(this);
     //     _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
     //     _levelGenerator.GenerateLevel();
-    //     _navSurface.BuildNavMesh();
+    //     StartCoroutine(WaitAndBuildNavCoroutine());
     // }
 
     private void BuildGrid()
     {
-        #if UNITY_EDITOR
-        foreach(Transform child in transform)
-        {
-            UnityEditor.EditorApplication.delayCall+=()=>
-            {
-                UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
-            };
-        }
-        #endif
+        // #if UNITY_EDITOR
+        // foreach(Transform child in transform)
+        // {
+        //     UnityEditor.EditorApplication.delayCall+=()=>
+        //     {
+        //         UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
+        //     };
+        // }
+        // #else
+        // foreach(Transform child in transform)
+        // {
+        //     Destroy(child.gameObject);
+        // }
+        // #endif
 
         foreach(Transform child in transform)
         {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Pathfinder : MonoBehaviour
 {
     [SerializeField] private GridManager _grid;
@@ -19,12 +19,17 @@ public class Pathfinder : MonoBehaviour
         _levelGenerator = GetComponent<LevelGenerator>();
     }
 
-    private void OnValidate() 
+    // private void OnValidate() 
+    // {
+    //     // UnityEditor.EditorApplication.delayCall+=()=>
+    //     // {
+    //     //     FindPath(_grid.GetNode(_grid.GetEntryPoint().x, _grid.GetEntryPoint().y), _grid.GetNode(_grid.GetExitPoint().x, _grid.GetExitPoint().y));
+    //     // };
+    // }
+
+    private void Start()
     {
-        UnityEditor.EditorApplication.delayCall+=()=>
-        {
-            FindPath(_grid.GetNode(_grid.GetEntryPoint().x, _grid.GetEntryPoint().y), _grid.GetNode(_grid.GetExitPoint().x, _grid.GetExitPoint().y));
-        };
+        _path = FindPath(_grid.GetNode(_grid.GetEntryPoint().x, _grid.GetEntryPoint().y), _grid.GetNode(_grid.GetExitPoint().x, _grid.GetExitPoint().y));
     }
     
     public List<Node> FindPath(Node startNode, Node targetNode)

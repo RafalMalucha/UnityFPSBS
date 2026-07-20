@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class PathVisualizer : MonoBehaviour
 {
     [SerializeField] private List<Node> _path;

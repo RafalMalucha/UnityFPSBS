@@ -2,7 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[ExecuteInEditMode]
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+
+//[ExecuteInEditMode]
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private GridManager _grid;
@@ -17,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject _arenaRoom;
 
     [Header("Path")]
-    [SerializeField] private List<Node> _path;
+    [SerializeField] private List<Node> _path = new List<Node>();
 
     private List<Node> _allOccupiedNodes = new List<Node>();
 
@@ -31,27 +36,33 @@ public class LevelGenerator : MonoBehaviour
     private void Start()
     {
         //_grid.GetNavSurface().BuildNavMesh();
-    }
-
-    private void OnValidate() 
-    {
-        foreach(Transform child in transform)
-        {
-            UnityEditor.EditorApplication.delayCall+=()=>
-            {
-                UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
-            };
-        }
         _path = _pathfinder.GetCurrentPath();
         _allOccupiedNodes = new List<Node>();
         GenerateLevel();
-        //_grid.GetNavSurface().BuildNavMesh();
     }
+
+    // private void OnValidate() 
+    // {
+    //     // #if UNITY_EDITOR
+    //     // foreach(Transform child in transform)
+    //     // {
+    //     //     UnityEditor.EditorApplication.delayCall+=()=>
+    //     //     {
+    //     //         UnityEditor.Undo.DestroyObjectImmediate(child.gameObject);
+    //     //     };
+    //     // }
+    //     // #endif
+    //     _path = _pathfinder.GetCurrentPath();
+    //     _allOccupiedNodes = new List<Node>();
+    //     GenerateLevel();
+    //     _grid.GetNavSurface().BuildNavMesh();
+    // }
 
     public List<RoomType> GenerateLevel()
     {
         List<RoomType> generatedRoomTypes = new List<RoomType>();
         _allOccupiedNodes = new List<Node>();
+        _path = _pathfinder.GetCurrentPath();
 
         for(int i = 0; i < _path.Count; i++)
         {
