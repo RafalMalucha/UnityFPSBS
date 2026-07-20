@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         _currentPlayerHealth = _maxPlayerHealth;
-        _currentRespawnPoint = SceneManager.Instance.GetPlayerSpawnPoint();
+        _currentRespawnPoint = LevelManager.Instance.GetPlayerSpawnPoint();
     }
 
     void Update()

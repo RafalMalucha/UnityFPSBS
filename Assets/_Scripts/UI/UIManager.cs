@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         GameObject UI_LevelInfo = GameObject.Find("UI_LevelInfo");
         _levelInfoDisplay = UI_LevelInfo.GetComponent<UI_LevelInfoDisplay>();
 
-        _levelInfoDisplay.SetAllCollectibles(SceneManager.Instance.GetNumberOfAllCollectibles());
+        _levelInfoDisplay.SetAllCollectibles(LevelManager.Instance.GetNumberOfAllCollectibles());
     }
 
     // Update is called once per frame

@@ -50,13 +50,17 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("asdf");
+    }
+
+    public void StartGridBuild()
+    {
         BuildGrid();
         _currentNode = GetNode(_entryNodeCoord.x, _entryNodeCoord.y);
         _pathfinder.ReSetGrid(this);
         _pathfinder.FindPath(GetNode(_entryNodeCoord.x, _entryNodeCoord.y), GetNode(_exitNodeCoord.x, _exitNodeCoord.y));
         _levelGenerator.GenerateLevel();
         StartCoroutine(WaitAndBuildNavCoroutine());
-
     }
 
     IEnumerator WaitAndBuildNavCoroutine()

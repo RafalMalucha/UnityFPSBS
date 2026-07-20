@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
 
-    public static SceneManager Instance;
+    public static LevelManager Instance;
     [SerializeField] private GameObject _player;
     [SerializeField] private Transform _playerSpawnPoint;
+    [SerializeField] private SceneGridsManager _gridsManager;
     [SerializeField] private SceneEnemyManager _sceneEnemyManager;
     [SerializeField] private SoundscapeManager _soundscapeManager;
     [SerializeField] private GameObject[] _sceneCollectibleSecrets;
