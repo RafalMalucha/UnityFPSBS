@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
+using System.Collections;
 
 public class SingleEnemyManager : MonoBehaviour
 {
@@ -12,6 +12,14 @@ public class SingleEnemyManager : MonoBehaviour
     private void Awake()
     {
         _enemyHealth = _enemyType.health;
+        _enemyNavMesh = GetComponent<EnemyNavMesh>();
+
+        StartCoroutine(WaitForNav());
+    }
+
+    IEnumerator WaitForNav()
+    {
+        yield return new WaitForSeconds(1.25f);
         _enemyNavMesh = GetComponent<EnemyNavMesh>();
     }
 

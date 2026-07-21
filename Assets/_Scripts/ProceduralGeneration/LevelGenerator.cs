@@ -19,10 +19,17 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject _entryAndExitRoom;
     [SerializeField] private GameObject _cornerRoom;
     [SerializeField] private GameObject _longRoom;
-    [SerializeField] private GameObject _arenaRoom;
+    [SerializeField] private GameObject _twoByTwo;
+    [SerializeField] private GameObject[] _arenaRooms;
 
     [Header("Path")]
     [SerializeField] private List<Node> _path = new List<Node>();
+
+    [Header("Damage Floor")]
+    [SerializeField] private GameObject _damageFloor;
+
+    [Header("Death Trigger")]
+    [SerializeField] private GameObject _deathTrigger;
 
     private List<Node> _allOccupiedNodes = new List<Node>();
 
@@ -38,7 +45,7 @@ public class LevelGenerator : MonoBehaviour
         //_grid.GetNavSurface().BuildNavMesh();
         _path = _pathfinder.GetCurrentPath();
         _allOccupiedNodes = new List<Node>();
-        GenerateLevel();
+        //GenerateLevel();
     }
 
     // private void OnValidate() 
@@ -86,12 +93,12 @@ public class LevelGenerator : MonoBehaviour
             _allOccupiedNodes.Add(_path[i]);
         }
 
-        ReplaceLongStraights(generatedRoomTypes, _path);
+        ReplaceRepetition(generatedRoomTypes, _path);
 
         return generatedRoomTypes;
     }
 
-    public void ReplaceLongStraights(List<RoomType> generatedRoomTypes, List<Node> _path)
+    public void ReplaceRepetition(List<RoomType> generatedRoomTypes, List<Node> _path)
     {
         for(int i = 1; i < generatedRoomTypes.Count - 1; i++)
         {
@@ -117,6 +124,12 @@ public class LevelGenerator : MonoBehaviour
                         generatedRoomTypes[i] = RoomType.Straight_Long;
                     }
                 }
+            } 
+            if(generatedRoomTypes[i - 1] == RoomType.Corner && generatedRoomTypes[i] == RoomType.Corner && generatedRoomTypes[i + 1] == RoomType.Corner)
+            {
+                generatedRoomTypes[i - 1] = RoomType.None;
+                generatedRoomTypes[i] = RoomType.TwoByTwo;
+                generatedRoomTypes[i + 1] = RoomType.None;
             } 
         }
 
@@ -149,10 +162,10 @@ public class LevelGenerator : MonoBehaviour
 
                 case RoomType.Straight:
 
-                    int randomRoom = Random.Range(0, _corridorRooms.Length);
+                    int randomCorridorRoom = Random.Range(0, _corridorRooms.Length);
 
                     Quaternion straitghtRoomRotation = GetRoomRotation(_path[i - 1], _path[i], _path[i + 1]);
-                    GameObject room = Instantiate(_corridorRooms[randomRoom], pos, straitghtRoomRotation);
+                    GameObject room = Instantiate(_corridorRooms[randomCorridorRoom], pos, straitghtRoomRotation);
                     room.name = "Room_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     room.transform.SetParent(this.transform);
                     break;
@@ -166,9 +179,85 @@ public class LevelGenerator : MonoBehaviour
                     break;
 
                 case RoomType.Arena:
-                    GameObject arenaRoom = Instantiate(_arenaRoom, pos, Quaternion.identity);
+                    int randomArenaRoom = Random.Range(0, _arenaRooms.Length);
+
+                    GameObject arenaRoom = Instantiate(_arenaRooms[randomArenaRoom], pos, Quaternion.identity);
                     arenaRoom.name = "ArenaRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     arenaRoom.transform.SetParent(this.transform);
+                    break;
+
+                case RoomType.TwoByTwo:
+
+                    int maxX = 0;
+                    int minX = int.MaxValue;
+                    int maxY = 0;
+                    int minY = int.MaxValue;
+
+                    if(_path[i - 1].GridPosition.x > maxX)
+                    {
+                        maxX = _path[i - 1].GridPosition.x;
+                    }
+                    if(_path[i - 1].GridPosition.x < minX)
+                    {
+                        minX = _path[i - 1].GridPosition.x;
+                    }
+                    
+                    if(_path[i - 1].GridPosition.y > maxY)
+                    {
+                        maxY = _path[i - 1].GridPosition.y;
+                    }
+                    if(_path[i - 1].GridPosition.y < minY)
+                    {
+                        minY = _path[i - 1].GridPosition.y;
+                    }
+
+
+                    if(_path[i].GridPosition.x > maxX)
+                    {
+                        maxX = _path[i].GridPosition.x;
+                    }
+                    if(_path[i].GridPosition.x < minX)
+                    {
+                        minX = _path[i].GridPosition.x;
+                    }
+                    
+                    if(_path[i].GridPosition.y > maxY)
+                    {
+                        maxY = _path[i].GridPosition.y;
+                    }
+                    if(_path[i].GridPosition.y < minY)
+                    {
+                        minY = _path[i].GridPosition.y;
+                    }
+
+
+                    if(_path[i + 1].GridPosition.x > maxX)
+                    {
+                        maxX = _path[i + 1].GridPosition.x;
+                    }
+                    if(_path[i + 1].GridPosition.x < minX)
+                    {
+                        minX = _path[i + 1].GridPosition.x;
+                    }
+                    
+                    if(_path[i + 1].GridPosition.y > maxY)
+                    {
+                        maxY = _path[i + 1].GridPosition.y;
+                    }
+                    if(_path[i + 1].GridPosition.y < minY)
+                    {
+                        minY = _path[i + 1].GridPosition.y;
+                    }
+
+                    Vector3 twoByTwoPos = pos + new Vector3(
+                        7,
+                        0,
+                        7
+                    );
+
+                    GameObject twoByTwoRoom = Instantiate(_twoByTwo, twoByTwoPos, Quaternion.identity);
+                    twoByTwoRoom.name = "TwoByTwoRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                    twoByTwoRoom.transform.SetParent(this.transform);
                     break;
 
                 default:

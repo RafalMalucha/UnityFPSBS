@@ -4,8 +4,7 @@ public enum RoomType
     Straight,
     Straight_Long,
     Corner,
-    TJunction,
-    Crossroad,
+    TwoByTwo,
     Arena,
     None
 }

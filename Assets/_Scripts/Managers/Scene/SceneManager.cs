@@ -1,3 +1,4 @@
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private SceneGridsManager _gridsManager;
     [SerializeField] private SceneEnemyManager _sceneEnemyManager;
     [SerializeField] private SoundscapeManager _soundscapeManager;
+    [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private GameObject[] _sceneCollectibleSecrets;
     
     private void Awake()
@@ -19,7 +21,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        
+        //_navMeshSurface.BuildNavMesh();
     }
 
     // Update is called once per frame
