@@ -5,6 +5,7 @@ public enum RoomType
     Straight_Long,
     Corner,
     TwoByTwo,
+    TwoCorner,
     Arena,
     None
 }

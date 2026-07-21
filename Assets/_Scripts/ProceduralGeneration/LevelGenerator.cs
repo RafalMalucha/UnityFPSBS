@@ -22,8 +22,9 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject _entryAndExitRoom;
     [SerializeField] private GameObject _cornerRoom;
     [SerializeField] private GameObject _longRoom;
-    [SerializeField] private GameObject _twoByTwo;
+    [SerializeField] private GameObject[] _twoByTwos;
     [SerializeField] private GameObject[] _arenaRooms;
+    [SerializeField] private GameObject[] _twoCorners;
 
     [Header("Borders")]
     [SerializeField] private GameObject _testBorder;
@@ -137,6 +138,11 @@ public class LevelGenerator : MonoBehaviour
                 generatedRoomTypes[i] = RoomType.TwoByTwo;
                 generatedRoomTypes[i + 1] = RoomType.None;
             } 
+            if(generatedRoomTypes[i - 1] == RoomType.Corner && generatedRoomTypes[i] == RoomType.Corner && generatedRoomTypes[i + 1] != RoomType.Corner)
+            {
+                generatedRoomTypes[i - 1] = RoomType.None;
+                generatedRoomTypes[i] = RoomType.TwoCorner;
+            }
         }
 
         BuildLevel(generatedRoomTypes);
@@ -160,29 +166,33 @@ public class LevelGenerator : MonoBehaviour
                     entryRoom.transform.SetParent(this.transform);
                     break;
 
+
                 case RoomType.Corner:
                     GameObject cornerRoom = Instantiate(_entryAndExitRoom, pos, Quaternion.identity);
                     cornerRoom.name = "CornerRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     cornerRoom.transform.SetParent(this.transform);
                     break;
 
+
                 case RoomType.Straight:
 
                     int randomCorridorRoom = Random.Range(0, _corridorRooms.Length);
 
-                    Quaternion straitghtRoomRotation = GetRoomRotation(_path[i - 1], _path[i], _path[i + 1]);
+                    Quaternion straitghtRoomRotation = GetRoomRotation(_path[i - 1], _path[i]);
                     GameObject room = Instantiate(_corridorRooms[randomCorridorRoom], pos, straitghtRoomRotation);
                     room.name = "Room_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     room.transform.SetParent(this.transform);
                     break;
 
+
                 case RoomType.Straight_Long:
-                    Quaternion longStraightRotation = GetRoomRotation(_path[i - 1], _path[i], _path[i + 1]);
+                    Quaternion longStraightRotation = GetRoomRotation(_path[i - 1], _path[i]);
 
                     GameObject longRoom = Instantiate(_longRoom, pos, longStraightRotation);
                     longRoom.name = "LongRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     longRoom.transform.SetParent(this.transform);
                     break;
+
 
                 case RoomType.Arena:
                     int randomArenaRoom = Random.Range(0, _arenaRooms.Length);
@@ -192,23 +202,39 @@ public class LevelGenerator : MonoBehaviour
                     arenaRoom.transform.SetParent(this.transform);
                     break;
 
+
                 case RoomType.TwoByTwo:
 
                     Vector2 posOffset = GetPositionOffsetForTwoByTwo(_path[i-1], _path[i], _path[i+1]);
 
-                    var twoByTwoPos = new Vector3(
+                    Vector3 twoByTwoPos = new Vector3(
                         this.transform.position.x + (posOffset.x * _grid.GetCellSize()), 
                         this.transform.position.y, 
                         this.transform.position.z + (posOffset.y * _grid.GetCellSize())
                     );
 
-                    GameObject twoByTwoRoom = Instantiate(_twoByTwo, twoByTwoPos, Quaternion.identity);
+                    GameObject twoByTwoRoom = Instantiate(_twoByTwos[Random.Range(0, _twoByTwos.Length)], twoByTwoPos, Quaternion.identity);
                     twoByTwoRoom.name = "TwoByTwoRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     twoByTwoRoom.transform.SetParent(this.transform);
                     break;
 
+
+                case RoomType.TwoCorner:
+
+                    Vector3 twoCornerPos = new Vector3(
+                        this.transform.position.x + ((_path[i-1].GridPosition.x + _path[i].GridPosition.x) / 2f * _grid.GetCellSize()),
+                        0f,
+                        this.transform.position.y + ((_path[i-1].GridPosition.y + _path[i].GridPosition.y) / 2f * _grid.GetCellSize())
+                    );
+
+
+
+                    GameObject twoCornerRoom = Instantiate(_twoCorners[Random.Range(0, _twoCorners.Length)], twoCornerPos, GetRoomRotation(_path[i-1], _path[i]) * Quaternion.Euler(0, 90, 0));
+                    twoCornerRoom.name = "TwoByTwoRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
+                    twoCornerRoom.transform.SetParent(this.transform);
+                    break;
+
                 default:
-                    Debug.Log("no matching room type");
                     break;
             }
         }
@@ -258,9 +284,10 @@ public class LevelGenerator : MonoBehaviour
         return RoomType.Corner;
     }
 
-    private Quaternion GetRoomRotation(Node previous, Node current, Node next)
+    private Quaternion GetRoomRotation(Node previous, Node current)
     {
-        bool horizontal = (previous.GridPosition.y == current.GridPosition.y) && (current.GridPosition.y == next.GridPosition.y);
+        //bool horizontal = (previous.GridPosition.y == current.GridPosition.y) && (current.GridPosition.y == next.GridPosition.y);
+        bool horizontal = previous.GridPosition.y == current.GridPosition.y;
 
         if (horizontal)
         {
