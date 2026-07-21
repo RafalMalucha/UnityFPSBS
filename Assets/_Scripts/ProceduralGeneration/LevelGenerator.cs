@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -188,71 +187,12 @@ public class LevelGenerator : MonoBehaviour
 
                 case RoomType.TwoByTwo:
 
-                    int maxX = 0;
-                    int minX = int.MaxValue;
-                    int maxY = 0;
-                    int minY = int.MaxValue;
+                    Vector2 posOffset = GetPositionOffsetForTwoByTwo(_path[i-1], _path[i], _path[i+1]);
 
-                    if(_path[i - 1].GridPosition.x > maxX)
-                    {
-                        maxX = _path[i - 1].GridPosition.x;
-                    }
-                    if(_path[i - 1].GridPosition.x < minX)
-                    {
-                        minX = _path[i - 1].GridPosition.x;
-                    }
-                    
-                    if(_path[i - 1].GridPosition.y > maxY)
-                    {
-                        maxY = _path[i - 1].GridPosition.y;
-                    }
-                    if(_path[i - 1].GridPosition.y < minY)
-                    {
-                        minY = _path[i - 1].GridPosition.y;
-                    }
-
-
-                    if(_path[i].GridPosition.x > maxX)
-                    {
-                        maxX = _path[i].GridPosition.x;
-                    }
-                    if(_path[i].GridPosition.x < minX)
-                    {
-                        minX = _path[i].GridPosition.x;
-                    }
-                    
-                    if(_path[i].GridPosition.y > maxY)
-                    {
-                        maxY = _path[i].GridPosition.y;
-                    }
-                    if(_path[i].GridPosition.y < minY)
-                    {
-                        minY = _path[i].GridPosition.y;
-                    }
-
-
-                    if(_path[i + 1].GridPosition.x > maxX)
-                    {
-                        maxX = _path[i + 1].GridPosition.x;
-                    }
-                    if(_path[i + 1].GridPosition.x < minX)
-                    {
-                        minX = _path[i + 1].GridPosition.x;
-                    }
-                    
-                    if(_path[i + 1].GridPosition.y > maxY)
-                    {
-                        maxY = _path[i + 1].GridPosition.y;
-                    }
-                    if(_path[i + 1].GridPosition.y < minY)
-                    {
-                        minY = _path[i + 1].GridPosition.y;
-                    }
-
-                    Vector3 twoByTwoPos = pos + new Vector3(
-                        7,
-                        0,
-                        7
+                    var twoByTwoPos = new Vector3(
+                        this.transform.position.x + (posOffset.x * _grid.GetCellSize()), 
+                        this.transform.position.y, 
+                        this.transform.position.z + (posOffset.y * _grid.GetCellSize())
                     );
 
                     GameObject twoByTwoRoom = Instantiate(_twoByTwo, twoByTwoPos, Quaternion.identity);
@@ -346,6 +286,23 @@ public class LevelGenerator : MonoBehaviour
             _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x, arenaSpawnNode.GridPosition.y - 1));
             _allOccupiedNodes.Add(_grid.GetNode(arenaSpawnNode.GridPosition.x + 1, arenaSpawnNode.GridPosition.y - 1));
         } 
+    }
+
+    private Vector3 GetPositionOffsetForTwoByTwo(Node prevNode, Node spawnNode, Node nextNode)
+    {
+        Vector2 prev = prevNode.GridPosition;
+        Vector2 spawn = spawnNode.GridPosition;
+        Vector2 next = nextNode.GridPosition;
+
+        int minX = (int)Mathf.Min(prev.x, spawn.x, next.x);
+        int maxX = (int)Mathf.Max(prev.x, spawn.x, next.x);
+
+        int minY = (int)Mathf.Min(prev.y, spawn.y, next.y);
+        int maxY = (int)Mathf.Max(prev.y, spawn.y, next.y);
+
+        Vector2 pos = new Vector2((minX + maxX) / 2f, (minY + maxY) / 2f);
+
+        return pos;
     }
 
     public void SetNewPath(List<Node> newPath)
