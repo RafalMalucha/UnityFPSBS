@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -20,6 +24,9 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject _longRoom;
     [SerializeField] private GameObject _twoByTwo;
     [SerializeField] private GameObject[] _arenaRooms;
+
+    [Header("Borders")]
+    [SerializeField] private GameObject _testBorder;
 
     [Header("Path")]
     [SerializeField] private List<Node> _path = new List<Node>();
@@ -205,12 +212,37 @@ public class LevelGenerator : MonoBehaviour
                     break;
             }
         }
+
+        BuildLevelBorders();
+
         Debug.Log("_path.Count");
         Debug.Log(_path.Count);
         Debug.Log("_allOccupiedNodes.Count");
         Debug.Log(_allOccupiedNodes.Count);
 
         //_grid.GetNavSurface().BuildNavMesh();
+    }
+
+    private void BuildLevelBorders()
+    {
+        for(int i = 0; i < _allOccupiedNodes.Count; i++)
+        {
+            foreach(Node node in _grid.GetNeighborNodes(_allOccupiedNodes[i]))
+            {
+                if(!_allOccupiedNodes.Contains(node))
+                {
+                    var pos = new Vector3(
+                this.transform.position.x + (node.GridPosition.x * _grid.GetCellSize()), 
+                this.transform.position.y, 
+                this.transform.position.z + (node.GridPosition.y * _grid.GetCellSize())
+            );
+
+                    GameObject border = Instantiate(_testBorder, pos, Quaternion.identity);
+                    border.name = "Border_" + node.GridPosition.x + "_" + node.GridPosition.y;
+                    border.transform.SetParent(this.transform);
+                }
+            }
+        }
     }
 
     private RoomType GetRoomType(Node previous, Node current, Node next)
@@ -290,19 +322,52 @@ public class LevelGenerator : MonoBehaviour
 
     private Vector3 GetPositionOffsetForTwoByTwo(Node prevNode, Node spawnNode, Node nextNode)
     {
-        Vector2 prev = prevNode.GridPosition;
-        Vector2 spawn = spawnNode.GridPosition;
-        Vector2 next = nextNode.GridPosition;
+        Vector2Int prevPos = prevNode.GridPosition;
+        Vector2Int spawnPos = spawnNode.GridPosition;
+        Vector2Int nextPos = nextNode.GridPosition;
 
-        int minX = (int)Mathf.Min(prev.x, spawn.x, next.x);
-        int maxX = (int)Mathf.Max(prev.x, spawn.x, next.x);
+        int minX = Mathf.Min(prevPos.x, spawnPos.x, nextPos.x);
+        int maxX = Mathf.Max(prevPos.x, spawnPos.x, nextPos.x);
 
-        int minY = (int)Mathf.Min(prev.y, spawn.y, next.y);
-        int maxY = (int)Mathf.Max(prev.y, spawn.y, next.y);
+        int minY = Mathf.Min(prevPos.y, spawnPos.y, nextPos.y);
+        int maxY = Mathf.Max(prevPos.y, spawnPos.y, nextPos.y);
 
         Vector2 pos = new Vector2((minX + maxX) / 2f, (minY + maxY) / 2f);
 
+        ReserveFourthNodeOfTwoByTwo(prevPos, spawnPos, nextPos);
+
         return pos;
+    }
+
+    private void ReserveFourthNodeOfTwoByTwo(Vector2Int prevPos, Vector2Int spawnPos, Vector2Int nextPos)
+    {
+        int[] xPositions = {prevPos.x, spawnPos.x, nextPos.x};
+        int[] yPositions = {prevPos.y, spawnPos.y, nextPos.y};
+
+        Vector2Int nodeToReserve = new Vector2Int();
+
+        if(xPositions.Count(x => x == prevPos.x) == 1)
+        {
+            nodeToReserve.x = prevPos.x;
+        }
+        else
+        {
+            nodeToReserve.x = nextPos.x;
+        }
+
+        if(yPositions.Count(y => y == prevPos.y) == 1)
+        {
+            nodeToReserve.y = prevPos.y;
+        }
+        else
+        {
+            nodeToReserve.y = nextPos.y;
+        }
+        // Debug.Log("------------------");
+        // Debug.Log("nodeToReserve");
+        // Debug.Log(nodeToReserve);
+
+        _allOccupiedNodes.Add(_grid.GetNode(nodeToReserve.x, nodeToReserve.y));
     }
 
     public void SetNewPath(List<Node> newPath)
