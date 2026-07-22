@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class Arena : MonoBehaviour
 {
+    [Header("test")]
+    [SerializeField] private GameObject[] _arenaEnemies;
 
+    [Header("possibly deprecated")]
     [SerializeField] private GameObject[] _doors; 
     [SerializeField] private GameObject[] _enemies;
+
+    [Header("arena setup")]
     [SerializeField] private GameObject[] _enemySpawnPoints;
     [SerializeField] private GameObject[] _enemyNavPointsOfInterest;
     [SerializeField] private Transform _arenaCompleteRespawnPoint;
@@ -18,64 +23,41 @@ public class Arena : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(_wasTriggered && SceneEnemyManager.Instance.GetAmountOfEnemiesAlive() == 0 && !_arenaComplete)
-        {
-            EndArena();
-            _arenaComplete = true;
-        }
-    }
+    // void Update()
+    // {
+    //     if(_wasTriggered && SceneEnemyManager.Instance.GetAmountOfEnemiesAlive() == 0 && !_arenaComplete)
+    //     {
+    //         EndArena();
+    //         _arenaComplete = true;
+    //     }
+    // }
 
     private void OnTriggerEnter(Collider collider) 
     {
-        if (collider.tag == "Player" && !_wasTriggered)
+        if (collider.tag == "Player")
         {
-            _wasTriggered = !_wasTriggered;
             StartArena();
+        }
+    }
+
+    private void OnTriggerExit(Collider collider) 
+    {
+        if (collider.tag == "Player")
+        {
+            SoundscapeManager.Instance.PlaySoundscape(0);
+            PlayerManager.Instance.GetPlayerHealth().SetCurrentRespawnPoint(_arenaCompleteRespawnPoint);
         }
     }
 
     private void StartArena()
     {
-        Debug.Log("arena start");
-
-        foreach(GameObject door in _doors)
+        for(int i = 0; i < _arenaEnemies.Length; i++)
         {
-            ButtonDoorInteract _buttonDoorInteract = door.GetComponent<ButtonDoorInteract>();
-            if(_buttonDoorInteract.GetIsOpen())
-            {
-                _buttonDoorInteract.DoorClose();
-            }  
-            if(_buttonDoorInteract.GetIsActive())
-            {
-                _buttonDoorInteract.SetIsActive(false);
-            }      
-        }
-
-        for(int i = 0; i < _enemies.Length; i++)
-        {
-            GameObject newEnemy = Instantiate(_enemies[i], _enemySpawnPoints[i].transform.position, Quaternion.identity);
-            newEnemy.gameObject.name = _enemies[i].transform.name + i;
-            newEnemy.GetComponent<EnemyNavMesh>().SetPointsOfInterestArray(_enemyNavPointsOfInterest);
+            _arenaEnemies[i].SetActive(true);
+            _arenaEnemies[i].GetComponent<EnemyNavMesh>().SetPointsOfInterestArray(_enemyNavPointsOfInterest);
         }
 
         SceneEnemyManager.Instance.UpdateListOfAliveEnemies();
         SoundscapeManager.Instance.PlaySoundscape((SoundscapeManager.SoundscapeType)1);
-    }
-
-    private void EndArena()
-    {
-        Debug.Log("arena end");
-        foreach(GameObject door in _doors)
-        {
-            ButtonDoorInteract _buttonDoorInteract = door.GetComponent<ButtonDoorInteract>();
-
-            _buttonDoorInteract.DoorOpen();
-            _buttonDoorInteract.SetIsActive(true);  
-        }
-
-        SoundscapeManager.Instance.PlaySoundscape(0);
-        PlayerManager.Instance.GetPlayerHealth().SetCurrentRespawnPoint(_arenaCompleteRespawnPoint);
     }
 }
