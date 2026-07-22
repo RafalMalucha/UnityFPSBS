@@ -7027,6 +7027,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3917763271678550689, guid: ed964345f04310148b86650a9d454624, type: 3}
+      propertyPath: _arenaCompleteRespawnPoint
+      value: 
+      objectReference: {fileID: 1649696999649717343}
+    - target: {fileID: 3917763271678550689, guid: ed964345f04310148b86650a9d454624, type: 3}
       propertyPath: _enemySpawnPoints.Array.size
       value: 3
       objectReference: {fileID: 0}
