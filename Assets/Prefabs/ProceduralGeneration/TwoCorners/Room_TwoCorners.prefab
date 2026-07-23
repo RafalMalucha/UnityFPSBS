@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6224862277356009982
 Transform:
@@ -375,7 +375,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &941933816830201133
 Transform:
@@ -731,7 +731,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5403832965637900469
 Transform:
@@ -1087,7 +1087,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6974160002298665819
 Transform:
@@ -1443,7 +1443,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4702780209524849055
 Transform:
@@ -1799,7 +1799,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9064667493692147272
 Transform:
@@ -2150,7 +2150,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5885876901188670087
 Transform:
@@ -2200,7 +2200,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2437603368079124462
 Transform:
@@ -2556,7 +2556,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8203604361820354677
 Transform:
@@ -2912,7 +2912,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8111488409952488195
 Transform:
@@ -3268,7 +3268,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5030463068130226820
 Transform:
@@ -3613,9 +3613,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5885876901188670087}
     m_Modifications:
+    - target: {fileID: 3641504687800657916, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_Name
       value: MonkeyBar (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5989948965735780574, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3727,6 +3735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 5311640463277005359, guid: 116208fdb313d39448bc89be9c739586, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3745,9 +3757,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5885876901188670087}
     m_Modifications:
+    - target: {fileID: 3641504687800657916, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_Name
       value: MonkeyBar (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5989948965735780574, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3807,9 +3827,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5885876901188670087}
     m_Modifications:
+    - target: {fileID: 3641504687800657916, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_Name
       value: MonkeyBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5930373022760870983, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5989948965735780574, guid: 2c471bbca6d7258478eae789700bf07f, type: 3}
       propertyPath: m_LocalPosition.x

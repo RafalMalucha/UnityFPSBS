@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     private InputAction _jump;
     private InputAction _dash;
     private InputAction _use;
+    private InputAction _pause;
 
 
     private void OnEnable() 
@@ -53,6 +54,7 @@ public class PlayerManager : MonoBehaviour
         _jump = InputSystem.actions.FindAction("Jump");
         _dash = InputSystem.actions.FindAction("Dash");
         _use = InputSystem.actions.FindAction("Use");
+        _pause = InputSystem.actions.FindAction("Pause");
     }
     
     void Update()
@@ -123,5 +125,10 @@ public class PlayerManager : MonoBehaviour
     public InputAction GetUseInputAction()
     {
         return _use;
+    }
+
+    public InputAction GetPauseInputAction()
+    {
+        return _pause;
     }
 }

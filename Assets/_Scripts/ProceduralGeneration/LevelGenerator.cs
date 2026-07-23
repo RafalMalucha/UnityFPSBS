@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private GameObject _testRoom;
     [SerializeField] private GameObject _entryAndExitRoom;
     [SerializeField] private GameObject _cornerRoom;
-    [SerializeField] private GameObject _longRoom;
+    [SerializeField] private GameObject[] _longRooms;
     [SerializeField] private GameObject[] _twoByTwos;
     [SerializeField] private GameObject[] _arenaRooms;
     [SerializeField] private GameObject[] _twoCorners;
@@ -187,11 +187,13 @@ public class LevelGenerator : MonoBehaviour
 
                 case RoomType.Straight_Long:
                     Quaternion longStraightRotation = GetRoomRotation(_path[i - 1], _path[i]);
+                    int randomLongRoom = Random.Range(0, _longRooms.Length);
 
-                    GameObject longRoom = Instantiate(_longRoom, pos, longStraightRotation);
+                    GameObject longRoom = Instantiate(_longRooms[randomLongRoom], pos, longStraightRotation);
                     longRoom.name = "LongRoom_" + _path[i].GridPosition.x + "_" + _path[i].GridPosition.y;
                     longRoom.transform.SetParent(this.transform);
                     break;
+                     
 
 
                 case RoomType.Arena:
