@@ -13,8 +13,11 @@ public class MonkeyBarTrigger : MonoBehaviour
         {
             Debug.Log("monkeybar swing start");
             _monkeyBarTriggeredNow = true;
-            PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(transform.position + _monkeyBarPlayerPositionOffset);
-            StartCoroutine(PlayerManager.Instance.GetPlayerMovement().MonkeyBar());
+
+            //PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(transform.position + _monkeyBarPlayerPositionOffset);
+            //StartCoroutine(PlayerManager.Instance.GetPlayerMovement().LerpToPosition(transform.position + _monkeyBarPlayerPositionOffset, 5f));
+
+            StartCoroutine(PlayerManager.Instance.GetPlayerMovement().MonkeyBar(transform.position + _monkeyBarPlayerPositionOffset, 0.25f));
         }
     }
 

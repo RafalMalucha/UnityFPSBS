@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -117,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMonkeyBarJumping)
         {
+            Debug.Log("Monkey bar jump started");
+
             isJumping = true;
             jumpStartTime = Time.time;
             initialYPosition = transform.position.y;
@@ -242,16 +245,19 @@ public class PlayerMovement : MonoBehaviour
         _playerManager.GetCharacterController().enabled = true;
     }
 
-    public IEnumerator MonkeyBar()
+    public IEnumerator MonkeyBar(Vector3 targetPosition, float lerpDuration)
     {
         _playerManager.GetCharacterController().enabled = false;
         Vector3 savedPlayerPosition = _playerManager.transform.position;
 
-        while(true)
+        yield return StartCoroutine(MonkeyBarPostionLerp(targetPosition, lerpDuration));
+
+        while (true)
         {
-            if(_playerManager.GetJumpInputAction().WasPressedThisFrame())
+            if (_playerManager.GetJumpInputAction().WasPressedThisFrame())
             {
-                SetNewPlayerPosition(savedPlayerPosition);
+                Debug.Log("Jump detected");
+                //SetNewPlayerPosition(savedPlayerPosition);
                 _playerManager.GetCharacterController().enabled = true;
                 isMonkeyBarJumping = true;
                 break;
@@ -259,6 +265,24 @@ public class PlayerMovement : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    IEnumerator MonkeyBarPostionLerp(Vector3 targetPosition, float lerpDuration)
+    {
+        Vector3 savedPlayerPosition = _playerManager.transform.position;
+        float lerpStartTime = Time.time;
+
+        while (Time.time < lerpStartTime + lerpDuration)
+        {
+            float t = (Time.time - lerpStartTime) / lerpDuration;
+
+            Vector3 lerpPosition = Vector3.Lerp(savedPlayerPosition, targetPosition, t);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, t);
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        //PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(targetPosition);
     }
 
     IEnumerator Dash(Vector3 direction)
@@ -269,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dashStartPosition = transform.position;
         Vector3 dashEndPosition = dashStartPosition + direction.normalized * dashDistance;
 
-        if(lastDashTime + dashCooldown > dashStartTime)
+        if (lastDashTime + dashCooldown > dashStartTime)
         {
             while (Time.time < dashStartTime + 0.1f)
             {
@@ -284,7 +308,23 @@ public class PlayerMovement : MonoBehaviour
                 yield return null;
             }
         }
+    }
 
+    public IEnumerator LerpToPosition(Vector3 targetPosition, float lerpDuration)
+    {
+        Debug.Log("start lerp to position");
+
+        float lerpStartTime = Time.time;
+        Vector3 lerpStartPosition = transform.position;
+
+        _playerManager.GetCharacterController().enabled = false;
+        while (Time.time < lerpStartTime + lerpDuration)
+        {
+            Vector3 lerpPosition = Vector3.Lerp(lerpStartPosition, targetPosition, lerpDuration);
+            PlayerManager.Instance.GetPlayerMovement().SetNewPlayerPosition(lerpPosition);
+        }
+
+        yield return null;
     }
 
     public float GetCurrentSpeed()
