@@ -5,13 +5,13 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private PlayerManager _playerManager;
     // ------------------------------------------
-    public float baseSpeed = 10.0f; 
-    public float maxSpeed = 10.0f; 
+    public float baseSpeed = 10.0f;
+    public float maxSpeed = 10.0f;
     public float gravity = -20.0f;
-    public float jumpHeight = 1.5f; 
-    public float jumpDuration = 0.65f; 
-    public float dashDistance = 10.0f; 
-    public float dashCooldown = 0.75f; 
+    public float jumpHeight = 1.5f;
+    public float jumpDuration = 0.65f;
+    public float dashDistance = 10.0f;
+    public float dashCooldown = 0.75f;
     public float sensitivity = 0.5f;
     // ------------------------------------------
     private Vector2 _moveAmount;
@@ -32,12 +32,12 @@ public class PlayerMovement : MonoBehaviour
     private float currentJumpHeight;
     private float currentJumpDuration;
 
-    private void Awake() 
+    private void Awake()
     {
         lastDashTime = Time.time;
     }
 
-    private void Update() 
+    private void Update()
     {
         HandleLook();
         HandleMovement();
@@ -52,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
 
         camera_xRotation -= verticalLook;
         camera_xRotation = Mathf.Clamp(camera_xRotation, -90f, 90f);
-        
+
         _playerManager.GetMainCamera().transform.localRotation = Quaternion.Euler(camera_xRotation, 0f, 0f);
-        
+
         transform.Rotate(Vector3.up * horizontalLook);
     }
 
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (_playerManager.GetJumpInputAction().WasPressedThisFrame() && _playerManager.GetCharacterController().isGrounded) 
+        if (_playerManager.GetJumpInputAction().WasPressedThisFrame() && _playerManager.GetCharacterController().isGrounded)
         {
             isJumping = true;
             jumpStartTime = Time.time;
@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             currentJumpDuration = jumpDuration;
         }
 
-        if (isMonkeyBarJumping) 
+        if (isMonkeyBarJumping)
         {
             isJumping = true;
             jumpStartTime = Time.time;
@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
             calculatedMoveSpeedY += 50.0f;
         }
         if(calculatedMoveSpeedY <= 50.0f && calculatedMoveSpeedY >= -50.0f)
-        { 
+        {
             calculatedMoveSpeedY = 0.0f;
         }
     }
@@ -284,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
                 yield return null;
             }
         }
-        
+
     }
 
     public float GetCurrentSpeed()
